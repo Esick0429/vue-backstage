@@ -105,6 +105,10 @@ export default {
                                 {
                                     index: '500',
                                     title: '500页面'
+                                },
+                                {
+                                    index: '403',
+                                    title: '403页面'
                                 }
                             ]
                         },
@@ -121,21 +125,6 @@ export default {
                     title: '江浙菜'
                 },
                 {
-                    icon: 'el-icon-rank',
-                    index: '6',
-                    title: '拖拽组件',
-                    subs: [
-                        {
-                            index: 'drag',
-                            title: '拖拽列表'
-                        },
-                        {
-                            index: 'dialog',
-                            title: '拖拽弹框'
-                        }
-                    ]
-                },
-                {
                     icon: 'el-icon-position',
                     index: 'ditu',
                     title: '地图'
@@ -146,21 +135,32 @@ export default {
                     title: '盗版云音乐'
                 },
                 {
-                    icon: 'el-icon-lx-warn',
-                    index: '7',
-                    title: '其他',
+                    icon: 'el-icon-s-data',
+                    index: 'echarts',
+                    title: 'Echarts图表',
+                },
+                {
+                    icon: 'el-icon-s-custom',
+                    index: 'Permission',
+                    title: '账号管理',
+                },
+                {
+                    icon: 'el-icon-rank',
+                    index: '6',
+                    title: '我还没做',
                     subs: [
                         {
-                            icon: 'el-icon-headset',
-                            index: 'music',
-                            title: '盗版云音乐'
+                            index: 'drag',
+                            title: '我还没做'
                         },
                         {
-                            index: 'Permission',
-                            title: '权限测试',
+                            index: 'dialog',
+                            title: '我还没做'
                         }
                     ]
                 },
+                    
+                
             ]
     }
   },

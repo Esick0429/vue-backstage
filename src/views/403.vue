@@ -7,7 +7,7 @@
             <h1 class="mt-5">很抱歉 <span class="text-primary">你没有权限噢</span></h1>
             <p class="lead my-5">当你看到这段话时，说明你没有管理员权限噢</p>
             <el-button @click="goBack" type="primary" icon="el-icon-arrow-left" round>
-                Go back home
+                返回首页
             </el-button>
         </el-col>
       </el-row>

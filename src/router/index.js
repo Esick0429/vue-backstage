@@ -18,6 +18,7 @@ const Miss3 = () =>import('../views/403.vue')
 const ditu = () =>import('../views/ditu.vue')
 const Music = () =>import('../views/Music.vue')
 const Permission = () =>import('../views/Permission.vue')
+const Echarts = () =>import('../views/Echarts.vue')
 // const Upload = () =>import('../views/Upload.vue')
 Vue.use(VueRouter)
 
@@ -131,6 +132,13 @@ const routes = [
         component:Music,
         meta:{
           title:'盗版云音乐'
+        }
+      },
+      {
+        path:'Echarts',
+        component:Echarts,
+        meta:{
+          title:'Echarts图表'
         }
       },
       {

@@ -6,7 +6,7 @@
           <h4 class="lagerfont">500</h4>
           <h1 class="lagerfont2 font-weight-light">Something has gone <span class="text-primary">seriously</span> wrong</h1>
           <p class="my-5 lead">It's always time for a coffee break. We should be back by the time you finish your coffee.</p>
-          <el-button type="primary" icon="el-icon-arrow-left" round >
+          <el-button type="primary" icon="el-icon-arrow-left" round @click="goBack" >
                 Go back home
             </el-button>
         </el-col>
@@ -35,7 +35,9 @@ export default {
 
   },
   methods:{
-
+    goBack(){
+          this.$router.replace('rc')
+      }
   },
  }
 </script>
