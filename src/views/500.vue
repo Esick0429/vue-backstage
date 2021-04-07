@@ -23,7 +23,7 @@ export default {
   name: '',
   data() { 
     return {
-      msg:'sss'
+      
     }
   },
   props: {
