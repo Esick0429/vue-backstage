@@ -55,6 +55,7 @@ export default {
       // userId:this.$route.params.info,
       isCollapse: false,
       isFullscreen: false,
+      // screenWidth:document.body.clientWidth
     }
   },
   props: {
@@ -62,15 +63,24 @@ export default {
   },
   components:{
   },
+  created(){
+    // //页面初始化获取页面的宽度,小于500 show为true
+    this.screenWidth = document.body.clientWidth
+    if (this.screenWidth < 768) {
+      this.isCollapse = true
+    } else {
+      this.isCollapse = false
+    }
+  },
   mounted() {
-  //   let winWidth = document.documentElement.clientWidth;
-  //   if(winWidth>=768 && winWidth<=999){ 
-  //   window.onresize = () => {
-  //     return (() => {
-  //      this.isC()
-  //     })()
-  //   }
-  //   }
+    this.watchWidth()
+    // let winWidth = document.body.clientWidth;
+    //     console.log(winWidth)
+    //     if(winWidth<998){ 
+    //       window.onresize = () => {
+    //           this.isC()
+    //       }
+    //     }
   },
   methods:{
       isC(){
@@ -86,7 +96,7 @@ export default {
         }, 300);
         bus.$emit('collapse',this.isCollapse)
     },
-    clickFullscreen(){
+      clickFullscreen(){
         if (!screenfull.isEnabled) {
           this.$message({
             message: 'you browser can not work',
@@ -104,7 +114,7 @@ export default {
         this.$router.replace('/Register'),
         console.log('111')
       },
-       audioPlay() {
+      audioPlay() {
       let audio = document.getElementById("audio"); 
       audio.muted = false;
       this.playMusic = !this.playMusic;
@@ -112,6 +122,37 @@ export default {
         audio.play()
       }else{
         audio.pause()
+      }
+      },
+      closeCollapse(){
+        this.isCollapse = true;
+        bus.$emit('collapse',this.isCollapse)
+      },
+      openCollapse(){
+        this.isCollapse = false;
+        bus.$emit('collapse',this.isCollapse)
+      },
+      watchWidth() {
+          window.onload = () => {
+              window.screenWidth = window.innerWidth
+              this.screenWidth = window.screenWidth
+            return (() => {
+              if(this.screenWidth<900){
+                this.closeCollapse()
+              }else if(this.screenWidth>900){
+                this.openCollapse()
+              }
+        })()
+        }
+      }
+  },
+  watch: {
+    // 监听浏览器窗口宽度,当浏览器窗口小于500时,显示详情
+    screenWidth(val) {
+      if (val < 768) {
+        this.isCollapse = false
+      } else {
+        this.isCollapse = true
       }
     }
   },

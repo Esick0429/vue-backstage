@@ -171,6 +171,7 @@ export default {
     bus.$on('collapse', msg => {
       this.isCollapse = msg;
     });
+    console.log(this.isCollapse)
   },
   mounted() {
 
