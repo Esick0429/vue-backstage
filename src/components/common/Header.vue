@@ -73,14 +73,13 @@ export default {
     }
   },
   mounted() {
+    this.ssWidth = document.documentElement.clientWidth
+    console.log(this.ssWidth)
+    if(this.ssWidth<900){
+      this.isCollapse = true;
+        bus.$emit('collapse',this.isCollapse)
+    }
     this.watchWidth()
-    // let winWidth = document.body.clientWidth;
-    //     console.log(winWidth)
-    //     if(winWidth<998){ 
-    //       window.onresize = () => {
-    //           this.isC()
-    //       }
-    //     }
   },
   methods:{
       isC(){
@@ -133,7 +132,7 @@ export default {
         bus.$emit('collapse',this.isCollapse)
       },
       watchWidth() {
-          window.onload = () => {
+        window.onresize = () => {
               window.screenWidth = window.innerWidth
               this.screenWidth = window.screenWidth
             return (() => {
@@ -142,7 +141,7 @@ export default {
               }else if(this.screenWidth>900){
                 this.openCollapse()
               }
-        })()
+            })()
         }
       }
   },
