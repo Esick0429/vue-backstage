@@ -99,7 +99,7 @@ header{
     }
     .sidebar{
         position: absolute;
-        z-index: 1;
+        z-index: 200;
     }
     .el-menu--collapse{
         display: none;

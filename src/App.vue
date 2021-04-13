@@ -15,4 +15,8 @@ export default {
 
 <style>
   @import url('../src/assets/css/index.css');
+html, body, #app, .wrapper {
+    width: 100%;
+    height: 100%;
+    }
 </style>

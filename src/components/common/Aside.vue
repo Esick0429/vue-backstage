@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="content">
     <div class="sidebar">
         <el-menu
             class="sidebar-el-menu"
@@ -52,7 +52,7 @@
     <el-main>
           <v-tag></v-tag>
           <router-view/>
-          </el-main>
+    </el-main>
   </el-container>
 </template>
 
@@ -188,4 +188,8 @@ export default {
 </script>
 
 <style scoped>
+.content{
+    height: 100%;
+    width: 100%;
+}
 </style>

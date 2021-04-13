@@ -1,12 +1,8 @@
 <template>
-  <div class="home">
-    <div class="HeaderContainer"><vHeader></vHeader></div>
+  <div class="wrapper">
+    <vHeader></vHeader>
     <!-- <div class="Tag"><v-tag></v-tag></div> -->
-    <div class="content">
-      <div class="AsideContainer"><vAside></vAside>
-      </div>
-       
-    </div>
+    <vAside></vAside>
   </div>
 </template>
 
