@@ -22,12 +22,13 @@
           <div class="btn-bell hidden-xs-only">
             <i class="el-icon-bell"></i>
           </div>
-          <div class="user-avatar">
-            <img src="../../assets/img/user-avatar.jpg">
-          </div>
+         
           <!-- <div class="user-name el-dropdown" trigger="click"> -->
-          <el-dropdown trigger="click" class="user-name hidden-xs-only ">
-            <span class="el-dropdown-link">
+          <el-dropdown trigger="click" class="user-name">
+            <div class="user-avatar">
+              <img src="../../assets/img/user-avatar.jpg">
+            </div>
+            <span class="el-dropdown-link hidden-xs-only">
               {{userId}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -92,8 +93,9 @@ export default {
         });
         setTimeout(() => {
           loading.close();
-        }, 300);
+        }, 300);       
         bus.$emit('collapse',this.isCollapse)
+
     },
       clickFullscreen(){
         if (!screenfull.isEnabled) {
@@ -143,7 +145,7 @@ export default {
               }
             })()
         }
-      }
+      },
   },
   watch: {
     // 监听浏览器窗口宽度,当浏览器窗口小于500时,显示详情
@@ -159,4 +161,8 @@ export default {
 </script>
 
 <style scoped>
+.user-name{
+  display: flex;
+  align-items: center;
+}
 </style>

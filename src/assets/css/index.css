@@ -97,4 +97,11 @@ header{
         font-size:1rem;
         width: 80%;
     }
+    .sidebar{
+        position: absolute;
+        z-index: 1;
+    }
+    .el-menu--collapse{
+        display: none;
+    }
 }

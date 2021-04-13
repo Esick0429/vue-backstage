@@ -1,8 +1,8 @@
 <template>
-  <div class="basetable" v-loading="loading" element-loading-text="拼命加载中">
+  <div class="basetable" v-loading="false" element-loading-text="拼命加载中">
     <!-- v-loading 设置加载 -->
     <div class="selectMenu">
-      <el-date-picker v-model="value6" type="daterange" placeholder="选择日期范围"></el-date-picker>
+      <el-date-picker v-model="value6" type="date" placeholder="选择日期范围"></el-date-picker>
       <!-- 点击触发add方法 -->
       <el-button type="primary" @click="add">新增</el-button>
     </div>
@@ -233,6 +233,14 @@ export default {
     margin: {
       top: 10px;
     }
+  }
+}
+@media only screen and (max-width: 768px){
+  .el-dialog{
+    width: 100%;
+  }
+  .el-pagination{
+    white-space: inherit;
   }
 }
 </style>
