@@ -108,7 +108,7 @@ export default {
         screenfull.toggle()
       },
       exitLogin(){
-        this.$router.replace('/login'),
+        window.location.href = "/login",
         console.log('111')
       },
       goRegister(){

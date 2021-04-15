@@ -57,8 +57,9 @@ import axios from "axios";
             axios.post('/api/login',{username:this.username,password:this.password})
             .then(result=>{
               console.log(result.data)
+              let getUserRole = result.data.username === 'admin' ? 'admin' : 'user'
               if(result.data.status == 200){
-                sessionStorage.setItem('ms_username', this.username);
+                sessionStorage.setItem('ms_username', getUserRole);
                 this.$message.success('欢迎进入我的世界');
                 this.$router.push({
                       name:'rc',//使用params传参需要name，query则是用path
