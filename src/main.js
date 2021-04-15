@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
   console.log("to:", to);
   document.title = `${to.meta.title} | backstage`;
   const role = sessionStorage.getItem('ms_username');
+  console.log(role)
     if (!role && to.path !== '/login') {
       if(to.path == '/register'){
         next()
