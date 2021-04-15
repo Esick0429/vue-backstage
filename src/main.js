@@ -3,11 +3,12 @@ import App from './App.vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
-import Base64 from './assets/js/base64' 
+import Base64 from './assets/js/base64'
 import VueAMap from 'vue-amap';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'element-ui/lib/theme-chalk/display.css';
+import store from './store'
 
 Vue.use(VueAxios, axios);
 Vue.use(VueAMap);
@@ -19,6 +20,7 @@ Vue.prototype.$Base64 = Base64;
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
 

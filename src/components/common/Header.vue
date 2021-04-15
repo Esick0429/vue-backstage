@@ -45,7 +45,7 @@
 
 <script>
 import screenfull from 'screenfull';
-import bus from './bus'
+// import bus from './bus'
 export default {
   name: 'vHeader',
   data() { 
@@ -54,7 +54,7 @@ export default {
       fullscreenLoading: false,
       userId:JSON.parse(this.$Base64.decode(this.$route.params.info)).userId,
       // userId:this.$route.params.info,
-      isCollapse: false,
+      // isCollapse: false,
       isFullscreen: false,
       // screenWidth:document.body.clientWidth
     }
@@ -74,17 +74,20 @@ export default {
     }
   },
   mounted() {
+    console.log(this.isCollapse)
     this.ssWidth = document.documentElement.clientWidth
     console.log(this.ssWidth)
     if(this.ssWidth<900){
       this.isCollapse = true;
-        bus.$emit('collapse',this.isCollapse)
+      this.$store.commit('openIsc')
     }
     this.watchWidth()
   },
   methods:{
       isC(){
-      this.isCollapse = !this.isCollapse;
+      // this.isCollapse = !this.isCollapse;
+      this.$store.commit('changeIsc')
+      
       const loading = this.$loading({
           lock: true,
           text: 'Loading',
@@ -94,7 +97,7 @@ export default {
         setTimeout(() => {
           loading.close();
         }, 300);       
-        bus.$emit('collapse',this.isCollapse)
+        // bus.$emit('collapse',this.isCollapse)
 
     },
       clickFullscreen(){
@@ -127,11 +130,11 @@ export default {
       },
       closeCollapse(){
         this.isCollapse = true;
-        bus.$emit('collapse',this.isCollapse)
+        this.$store.commit('openIsc')
       },
       openCollapse(){
         this.isCollapse = false;
-        bus.$emit('collapse',this.isCollapse)
+        this.$store.commit('closeIsc')
       },
       watchWidth() {
         window.onresize = () => {
@@ -157,6 +160,14 @@ export default {
       }
     }
   },
+  computed:{
+     isCollapse:{
+       get(){
+      return this.$store.state.isCollapse
+       },
+       set(){}
+    },
+  }
  }
 </script>
 

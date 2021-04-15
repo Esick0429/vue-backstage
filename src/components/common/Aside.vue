@@ -59,7 +59,7 @@
 
 <script>
 
-import bus from './bus';
+// import bus from './bus';
  import vTag from './Tags';
 export default {
   title: '',
@@ -68,7 +68,7 @@ export default {
   },
   data() { 
     return {
-      isCollapse:false,
+    //   isCollapse:false,
       items: [
                 {
                     icon: 'el-icon-s-order',
@@ -168,13 +168,13 @@ export default {
 
   },
   created(){
-    bus.$on('collapse', msg => {
-      this.isCollapse = msg;
-    });
-    console.log(this.isCollapse)
+    // bus.$on('collapse', msg => {
+    //   this.isCollapse = msg;
+    // });
+    // console.log(this.isCollapse)
   },
   mounted() {
-
+      console.log(this.isCollapse)
   },
   methods:{
     
@@ -182,7 +182,13 @@ export default {
   computed:{
     onRoutes() {
             return this.$route.path.replace('/', '');
-        }
+        },
+     isCollapse:{
+       get(){
+        return this.$store.state.isCollapse
+       },
+       set(){}
+    },
   }
  }
 </script>
