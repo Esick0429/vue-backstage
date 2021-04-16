@@ -9,7 +9,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'element-ui/lib/theme-chalk/display.css';
 import store from './store'
-
 Vue.use(VueAxios, axios);
 Vue.use(VueAMap);
 Vue.config.productionTip = false
@@ -34,18 +33,17 @@ VueAMap.initAMapApiLoader({
 });
 // axios.defaults.baseURL = 'http://localhost:3000/';
 
+Vue.http.headers.common['token'] = store.state.token;
 router.beforeEach((to, from, next) => {
   console.log("from:", from);
   console.log("to:", to);
   document.title = `${to.meta.title} | backstage`;
-  const role = sessionStorage.getItem('ms_username');
+  // const role = sessionStorage.getItem('ms_username');
+  const role = sessionStorage.getItem('UserRole')
+  const token = sessionStorage.getItem('token')
   console.log(role)
-    if (!role && to.path !== '/login') {
-      if(to.path == '/register'){
-        next()
-      }else{
-      next('/login')
-      }
+    if (!token && to.path !== '/login' && to.path !== '/register') {
+      next('/')
     }else if(to.meta.Auth){
       role === 'admin' ? next() : next('403');
     }else{

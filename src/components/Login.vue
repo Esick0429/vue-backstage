@@ -29,6 +29,8 @@
 
 <script>
 import axios from "axios";
+import service from "../util/axios.js";
+import { mapMutations } from "vuex"
 // import {login} from '../api/index';
   export default {
     name: "login",
@@ -51,16 +53,19 @@ import axios from "axios";
       }
     },
     methods: {
+      ...mapMutations(["setToken","setMoreUserInfo"]),
       login(formName){
         let username=this.username;
         console.log(username)
             axios.post('/api/login',{username:this.username,password:this.password})
             .then(result=>{
               console.log(result.data)
+              let token = result.data.token
               let getUserRole = result.data.username === 'admin' ? 'admin' : 'user'
               if(result.data.status == 200){
-                sessionStorage.setItem('ms_username', getUserRole);
                 this.$message.success('欢迎进入我的世界');
+                sessionStorage.setItem('token', token);
+                sessionStorage.setItem('UserRole',getUserRole)
                 this.$router.push({
                       name:'rc',//使用params传参需要name，query则是用path
                         // path: '/home/rc',
@@ -92,52 +97,8 @@ import axios from "axios";
       register(){
         this.$router.replace('/register')
       }
-      // async handleLogin() {
-      // /**
-      //  * 调用登录接口
-      //  * 成功：
-      //  *     保存token
-      //  *     跳转到首页，并给出成功的提示
-      //  * 失败：给出错误提示，让用户重新登录
-      //  */
-      // // var name = this.username;
-      // // var pwd = this.password;
-      // // this.$http.post('api/users/selectUser', {
-      // //   username: name,
-      // //   password: pwd
-      // // },{}).then((response) => {
-      // //   console.log(response);
-      // //   this.$route.replace('rc')
-      // // })
-      // const res = await login(this.userinfo);
-      // const {
-      //   meta: { msg, status }
-      // } = res.data;
-
-      // if (status === 200) {
-      //   const { token } = res.data.data;
-      //   localStorage.setItem("token", token);
-      //   //记住上次没有token要访问的页面地址，如果登录成功，再返回到上次要访问到页面
-      //   const { redirect } = this.$route.query;
-
-      //   //如果直接登录，没有redirect,成功后直接跳转到home
-      //   if (!redirect) {
-      //     this.$router.push({ name: "Home" });
-      //   } else {
-      //     this.$router.push({ path: redirect });
-      //   }
-
-      //   this.$message({
-      //     message: msg,
-      //     type: "success"
-      //   });
-      // } else {
-      //   this.$message({
-      //     message: msg,
-      //     type: "error"
-      //   });
-      // }
-      // }
+    },
+    mounted(){
     }
   }
 </script>

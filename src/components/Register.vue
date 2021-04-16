@@ -65,7 +65,7 @@ import axios from "axios";
             }
         },
         goBack(){
-           this.$router.go(-1);
+                 this.$router.replace({path: '/login'});
         },
      register(){
             this.verify()
