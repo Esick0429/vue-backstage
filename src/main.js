@@ -33,7 +33,6 @@ VueAMap.initAMapApiLoader({
 });
 // axios.defaults.baseURL = 'http://localhost:3000/';
 
-Vue.http.headers.common['token'] = store.state.token;
 router.beforeEach((to, from, next) => {
   console.log("from:", from);
   console.log("to:", to);
@@ -51,4 +50,33 @@ router.beforeEach((to, from, next) => {
     }
   
 })
+
+axios.interceptors.request.use(
+  function (config) {
+    //判断如果不是登录页，必须携带token到后端，才能正常返回数据
+
+    //判断如果不是login页，获取token,并通过请求头携带到后端
+    if (sessionStorage.getItem("token")) {
+      const token = sessionStorage.getItem('token');
+
+      //设置请求头
+      config.headers['Authorization'] = token;
+
+    }
+    return config;
+  },
+  function(error) {
+    return Promise.reject(error);
+  }
+);
+
+//响应拦截器
+axios.interceptors.response.use(
+  function(response) {
+    return response;
+  },
+  function(error) {
+    return Promise.reject(error);
+  }
+);
 
