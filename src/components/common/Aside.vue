@@ -76,16 +76,6 @@ export default {
                     title: '日常行程'
                 },
                 {
-                    icon: 'el-icon-eleme',
-                    index: 'cc',
-                    title: '川菜'
-                },
-                {
-                    icon: 'el-icon-eleme',
-                    index: 'yc',
-                    title: '粤菜'
-                },
-                {
                     icon: 'el-icon-s-order',
                     index: '3',
                     title: '表单相关',
@@ -114,16 +104,7 @@ export default {
                         },
                     ]
                 },
-                {
-                    icon: 'el-icon-eleme',
-                    index: 'xc',
-                    title: '湘菜'
-                },
-                {
-                    icon: 'el-icon-eleme',
-                    index: 'jzc',
-                    title: '江浙菜'
-                },
+         
                 {
                     icon: 'el-icon-position',
                     index: 'ditu',

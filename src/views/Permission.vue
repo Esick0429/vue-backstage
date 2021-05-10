@@ -79,7 +79,10 @@ import axios from 'axios'
                 axios.post('/api/select',{list:this.list})
                  .then(result=>{
                      console.log(result.data.list)
-                     this.list = result.data.list
+                     this.list = result.data.list;
+                     if(result.data.status == 401){
+                         this.$router.replace('/login')
+                     }
                  })
                  .catch(err=>{
                      console.log(err)

@@ -70,11 +70,11 @@ import { mapMutations } from "vuex"
                       name:'rc',//使用params传参需要name，query则是用path
                         // path: '/home/rc',
                         params:{
-                            info:this.$Base64.encode(JSON.stringify({
-                            userId:this.username,
-                          }))
+                          //   info:this.$Base64.encode(JSON.stringify({
+                          //   userId:this.username,
+                          // }))
                           // userPwd:this.form.password
-                          // info:this.username,
+                          info:this.username,
                             // userId: this.form.username,
                             // userPwd:this.form.password
                         }

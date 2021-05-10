@@ -36,7 +36,7 @@ const routes = [
     }
   },
   {
-    path: '/home/:info',
+    path: '/home/',
     name:'Home',
     component: Home,
     children:[

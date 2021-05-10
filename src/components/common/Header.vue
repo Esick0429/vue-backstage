@@ -52,8 +52,8 @@ export default {
     return {
       playMusic:true,
       fullscreenLoading: false,
-      userId:JSON.parse(this.$Base64.decode(this.$route.params.info)).userId,
-      // userId:this.$route.params.info,
+      // userId:JSON.parse(this.$Base64.decode(this.$route.params.info)).userId,
+      userId:this.$route.params.info,
       // isCollapse: false,
       isFullscreen: false,
       // screenWidth:document.body.clientWidth
