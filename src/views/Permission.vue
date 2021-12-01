@@ -23,6 +23,12 @@
                 prop="password"
                 label="密码">
             </el-table-column>
+            <el-table-column
+                label="权限">
+                <template slot-scope="scope">
+                    <span>{{scope.row.authority}}</span>
+                </template>
+            </el-table-column>
             <el-table-column label="操作">
             <template slot-scope="scope">
                 <el-button

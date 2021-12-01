@@ -61,7 +61,7 @@ import { mapMutations } from "vuex"
             .then(result=>{
               console.log(result.data)
               let token = result.data.token
-              let getUserRole = result.data.username === 'admin' ? 'admin' : 'user'
+              let getUserRole = result.data.authority === 1 ? 'admin' : 'user'
               if(result.data.status == 200){
                 this.$message.success('欢迎进入我的世界');
                 sessionStorage.setItem('token', token);
