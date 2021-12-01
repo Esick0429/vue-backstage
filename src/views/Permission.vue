@@ -94,6 +94,15 @@ import axios from 'axios'
                      console.log(err)
                  })
              },
+             //async/await实现axios异步请求
+             // async User(){
+             //   try{
+             //    var ret = await axios.post('/api/select',{list:this.list})
+             //    console.log(ret.data)
+             //    this.list = ret.data.list;
+             //    } catch (err){
+             //       console.log(err)
+             //    }
              handleEdit(index, row) {// eslint-disable-line no-unused-vars
              console.log(row.id)
                     this.form = this.list[index];
