@@ -1,5 +1,6 @@
 module.exports={
-    publicPath : './',
+    // publicPath : '/',
+    publicPath : './',  //本地跑
     assetsDir: 'static',
     productionSourceMap: false,
     devServer: {

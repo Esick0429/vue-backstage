@@ -75,7 +75,7 @@ import axios from 'axios'
                 formLabelWidth: "80px",
             }
         },
-        created(){this.token = sessionStorage.getItem('token')},
+        created(){this.token = localStorage.getItem('token')},
          methods: {
              allUser(){
                  let list=[];
@@ -88,6 +88,8 @@ import axios from 'axios'
                      this.list = result.data.list;
                      if(result.data.status == 401){
                          this.$router.replace('/login')
+                     }else if(result.data.status == 403){
+                         this.$router.replace('403')
                      }
                  })
                  .catch(err=>{

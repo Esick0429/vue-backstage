@@ -26,5 +26,62 @@
      }
      var sum =add(1,2)
      console.log(sum)
+     const arr3 = [5, 2, 7, 8, 34, 7, 39, 12, 56, 9, 1,9,9,9,9,9,9]
+
+function bubbleSort(arr3) {
+  const len = arr3.length
+  // 外层循环i控制比较的轮数
+  for (let i = 0; i < len; i++) {
+    // 里层循环控制每一轮比较的次数j，arr3[i] 只用跟其余的len - i个元素比较
+    for (let j = 1; j < len - i; j++) {
+      // 若前一个元素"大于"后一个元素，则两者交换位置
+      if (arr3[j - 1] > arr3[j]) {
+        [arr3[j - 1], arr3[j]] = [arr3[j], arr3[j - 1]]
+      }
+    }
+  }
+  return new Set(arr3)
+}
+
+console.log(bubbleSort(arr3))	// [1, 2,  5,  7,  7, 8, 9, 12, 34, 39, 56]
+
+let objA = {
+  A:{
+    'a':1,
+    'b':{
+      'c':2
+    }
+  },
+  B:{
+    'c':3
+  },
+  C:1
+}
+function flatObj (obj){
+  const ans = {}
+  inner(obj,null)
+  function inner(obj,flag){
+    for(let i in obj){
+      if( obj[i] instanceof Object){
+        if(flag === null){
+          inner(obj[i],i)
+        }else{
+          inner(obj[i],flag+'.'+i)
+        }
+      }else{
+        console.log(flag);
+        if(flag === null){
+          ans[i] = obj[i]
+        }else{
+          ans[flag+'.'+i] = obj[i]
+        }
+      }
+    }
+  }
+  return ans
+}
+let asb = flatObj(objA)
+console.log(asb);
+console.log(objA);
 </script>
 </html>

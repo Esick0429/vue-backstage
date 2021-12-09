@@ -27,6 +27,9 @@ const routes = [
   {
     path:'/register',
     component: register,
+    meta:{
+      requireAuth:true
+    }
   },
   {
     path:'/login',
