@@ -73,7 +73,7 @@ export default {
                 {
                     icon: 'el-icon-s-order',
                     index: 'rc',
-                    title: '日常行程'
+                    title: '日记'
                 },
                 {
                     icon: 'el-icon-s-order',

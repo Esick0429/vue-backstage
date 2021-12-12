@@ -2,20 +2,31 @@
   <div class="basetable" v-loading="false" element-loading-text="拼命加载中">
     <!-- v-loading 设置加载 -->
     <div class="selectMenu">
-      <el-date-picker v-model="value6" type="date" placeholder="选择日期范围"></el-date-picker>
+      <el-date-picker
+        v-model="value6"
+        type="date"
+        placeholder="选择日期范围"
+      ></el-date-picker>
       <!-- 点击触发add方法 -->
       <el-button type="primary" @click="add">新增</el-button>
     </div>
     <div class="tableMain">
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="日期" width="180"></el-table-column>
-        <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
+        <el-table-column prop="date" label="日期" width="180" :formatter="formatDate"></el-table-column>
+        <el-table-column prop="title" label="标题" width="180"></el-table-column>
+        <el-table-column prop="content" label="内容"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 点击编辑进入编辑页面进行编辑表格数据 -->
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              size="small"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -32,14 +43,14 @@
     </div>
     <!-- 下面这个用来设置点击添加按钮的弹出框，里面可以进行嵌套表格来展示弹出的表格信息,使用下面的:visible.sync来控制显示与否 -->
     <!-- 里面绑定的是我们新设置的值，填写完成后，将我们这个新值塞到页面中所有的数据当中去 -->
-    <el-dialog title="用户信息" :visible.sync="dialogFormVisible">
+    <el-dialog title="日记修改" :visible.sync="dialogFormVisible">
       <!-- 在el-dialog中进行嵌套el-form实现弹出表格的效果 -->
       <el-form :model="form">
-        <el-form-item label="地址" :label-width="formLabelWidth">
-          <el-input v-model="form.address" auto-complete="off"></el-input>
+        <el-form-item label="标题" :label-width="formLabelWidth">
+          <el-input v-model="form.title" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="姓名" :label-width="formLabelWidth">
-          <el-input v-model="form.name" auto-complete="off"></el-input>
+        <el-form-item label="内容" :label-width="formLabelWidth">
+          <el-input v-model="form.content" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="日期" :label-width="formLabelWidth">
           <el-date-picker
@@ -48,13 +59,6 @@
             placeholder="选择日期"
             value-format="yyyy-MM-dd"
           ></el-date-picker>
-        </el-form-item>
-
-        <el-form-item label="性别" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="性别">
-            <el-option label="男" value="男"></el-option>
-            <el-option label="女" value="女"></el-option>
-          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -67,71 +71,14 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {selectDiary} from '../api/index'
 export default {
   data() {
     return {
       loading: true,
       //   表格的数据
-      tableData: [
-        {
-          date: "2017-05-01",
-          name: "士兵76",
-          region: "男",
-          address: "国王大道",
-          city: ""
-        },
-        {
-          date: "2017-05-02",
-          name: "源氏",
-          region: "男",
-          address: "尼泊尔",
-          city: ""
-        },
-        {
-          date: "2017-05-03",
-          name: "黑百合",
-          region: "女",
-          address: "沃斯卡亚工业区",
-          city: ""
-        },
-        {
-          date: "2017-05-04",
-          name: "猎空",
-          region: "女",
-          address: "国王大道",
-          city: ""
-        },
-        {
-          date: "2017-05-03",
-          name: "查莉娅",
-          region: "女",
-          address: "沃斯卡亚工业区",
-          city: ""
-        },
-        {
-          date: "2017-05-03",
-          name: "禅雅塔",
-          region: "男",
-          address: "尼泊尔",
-          city: ""
-        },
-        {
-          date: "2017-05-03",
-          name: "半藏",
-          region: "女",
-          address: "花村",
-          city: ""
-        }
-      ],
-      //   城市选择数据
-      cityList: [
-        { name: "国王大道" },
-        { name: "尼泊尔" },
-        { name: "沃斯卡亚工业区" },
-        { name: "花村" },
-        { name: "尼泊尔" },
-        { name: "月球基地" }
-      ],
+      tableData:[],
+
       dialogFormVisible: false,
       formLabelWidth: "80px",
       // 设置form用于进行添加的时候绑定值
@@ -146,8 +93,16 @@ export default {
     setTimeout(() => {
       this.loading = false;
     }, 2000);
+    this.getDiaryData()
   },
   methods: {
+    async getDiaryData(){
+      let {data} = await selectDiary()
+      console.log(data);
+      this.tableData = data.data
+      console.log(data.data);
+      console.log(this.tableData);
+    },
     showTime() {
       this.$alert(this.value6, "起止时间", {
         confirmButtonText: "确定",
@@ -217,11 +172,17 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+    },
+    formatDate(row,column){
+      console.log(row,column);
+      var date = row[column.property];
+      if(date == undefined){return ''}
+      return this.dayjs(date).format("YYYY-MM-DD HH:mm:ss")
     }
   }
 };
 </script>
-<style lang='scss'>
+<style lang="scss">
 .basetable {
   .tableMain {
     margin: {
@@ -235,11 +196,11 @@ export default {
     }
   }
 }
-@media only screen and (max-width: 768px){
-  .el-dialog{
+@media only screen and (max-width: 768px) {
+  .el-dialog {
     width: 100%;
   }
-  .el-pagination{
+  .el-pagination {
     white-space: inherit;
   }
 }

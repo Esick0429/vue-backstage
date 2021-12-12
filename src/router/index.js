@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 const register = () => import(/* webpackChunkName: 'components' */'../components/Register.vue')
 const Home = () => import(/* webpackChunkName: 'components' */'../components/common/Home.vue')
-const First = () => import(/* webpackChunkName: 'views' */'../views/First.vue')
+const Diary = () => import(/* webpackChunkName: 'views' */'../views/Diary.vue')
 const Jzc = () => import(/* webpackChunkName: 'views' */'../views/Jzc.vue')
 const Cc = () => import(/* webpackChunkName: 'views' */'../views/Cc.vue')
 const Yc = () => import(/* webpackChunkName: 'views' */'../views/Yc.vue')
@@ -50,9 +50,9 @@ const routes = [
       {
           path:'rc',
           name:'rc',
-          component: First,
+          component: Diary,
           meta:{
-            title:'日常行程',
+            title:'日记',
             hideclose:true,
             roles: ['user', 'admin']
           }

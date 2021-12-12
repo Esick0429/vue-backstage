@@ -5,11 +5,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import Base64 from './assets/js/base64'
 import VueAMap from 'vue-amap'
-import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'element-ui/lib/theme-chalk/display.css'
 import store from './store'
-Vue.use(VueAxios, axios)
+import dayjs from "dayjs"
+Vue.prototype.dayjs = dayjs;//可以全局使用dayjs
 Vue.use(VueAMap)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -55,31 +55,3 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
-axios.interceptors.request.use(
-  function(config) {
-    //判断如果不是登录页，必须携带token到后端，才能正常返回数据
-
-    //判断如果不是login页，获取token,并通过请求头携带到后端
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token')
-
-      //设置请求头
-      config.headers['Authorization'] = token
-    }
-    return config
-  },
-  function(error) {
-    return Promise.reject(error)
-  }
-)
-
-//响应拦截器
-axios.interceptors.response.use(
-  function(response) {
-    return response
-  },
-  function(error) {
-    return Promise.reject(error)
-  }
-)
