@@ -36,9 +36,35 @@ export function updateInfo(data) {
   })
 }
 
-export function selectDiary() {
+export function selectDiary(data) {
   return request({
-    url: '/api/getDiary',
+    url: `/api/getDiary?pageIndex=${data.pageIndex}&pageSize=${data.pageSize}`,
     method: 'GET'
   })
 }
+
+
+export function addDiary(data) {
+  return request({
+    url: `/api/addDiary`,
+    method:'POST',
+    data
+  })
+}
+
+export function updateDiary(data) {
+  return request({
+    url: `/api/updateDiary`,
+    method:'POST',
+    data
+  })
+}
+
+export function deleteDiary(data) {
+  return request({
+    url: `/api/deleteDiary?id=${data.id}`,
+    method:'DELETE',
+    data
+  })
+}
+

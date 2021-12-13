@@ -166,7 +166,6 @@ const routes = [
 const router = new VueRouter({
   routes,
   // mode:'history',
-  base:'/dist'
 })
 
 export default router
