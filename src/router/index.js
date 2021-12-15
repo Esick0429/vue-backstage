@@ -3,10 +3,6 @@ import VueRouter from 'vue-router'
 const register = () => import(/* webpackChunkName: 'components' */'../components/Register.vue')
 const Home = () => import(/* webpackChunkName: 'components' */'../components/common/Home.vue')
 const Diary = () => import(/* webpackChunkName: 'views' */'../views/Diary.vue')
-const Jzc = () => import(/* webpackChunkName: 'views' */'../views/Jzc.vue')
-const Cc = () => import(/* webpackChunkName: 'views' */'../views/Cc.vue')
-const Yc = () => import(/* webpackChunkName: 'views' */'../views/Yc.vue')
-const Xc = () => import(/* webpackChunkName: 'views' */'../views/Xc.vue')
 const Login = () =>import(/* webpackChunkName: 'components' */'../components/Login.vue')
 const From = () =>import(/* webpackChunkName: 'views' */'../views/From.vue')
 const Miss = () =>import(/* webpackChunkName: 'views' */'../views/500.vue')
@@ -16,7 +12,6 @@ const ditu = () =>import(/* webpackChunkName: 'views' */'../views/ditu.vue')
 const Music = () =>import(/* webpackChunkName: 'views' */'../views/Music.vue')
 const Permission = () =>import(/* webpackChunkName: 'views' */'../views/Permission.vue')
 const Echarts = () =>import(/* webpackChunkName: 'views' */'../views/Echarts.vue')
-// const Upload = () =>import('../views/Upload.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -54,38 +49,6 @@ const routes = [
           meta:{
             title:'日记',
             hideclose:true,
-            roles: ['user', 'admin']
-          }
-      },
-      {
-          path:'jzc',
-          component: Jzc,
-          meta:{
-            title:'江浙菜',
-            roles: ['user', 'admin']
-          }
-      },
-      {
-          path:'xc',
-          component: Xc,
-          meta:{
-            title:'湘菜',
-            roles: ['user', 'admin']
-          }
-      },
-      {
-          path:'cc',
-          component: Cc,
-          meta:{
-            title:'川菜',
-            roles: ['user', 'admin']
-          }
-      },
-      {
-          path:'Yc',
-          component: Yc,
-          meta:{
-            title:'粤菜',
             roles: ['user', 'admin']
           }
       },
@@ -165,7 +128,7 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  // mode:'history',
+  // mode:'history'
 })
 
 export default router

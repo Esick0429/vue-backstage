@@ -82,6 +82,7 @@
 
 <script type="text/ecmascript-6">
 import { selectDiary,addDiary,updateDiary,deleteDiary} from '../api/index'
+import { debounce } from '@/util/debounce'
 export default {
   data() {
     return {
@@ -130,7 +131,7 @@ export default {
       this.dialogFormVisible = true;
       this.flag = 1
     },
-    async update(index) {
+    update:debounce(async function (index) {
       //   this.form.date = reformat(this.form.date);
       //    可以在html上面进行设置日期的格式化
       //   将我们添加的信息提交到总数据里面
@@ -152,7 +153,7 @@ export default {
       }
       this.getDiaryData()
       this.dialogFormVisible = false;
-    },
+    },300),
     handleDelete(index, row) {// eslint-disable-line no-unused-vars
       // 设置类似于console类型的功能
       this.$confirm("是否删除该条日记？", "提示", {
@@ -197,7 +198,7 @@ export default {
     formatDate(row,column){
       var date = row[column.property];
       if(date == undefined){return ''}
-      return this.dayjs(date).format("YYYY-MM-DD HH:mm:ss")
+      return this.dayjs(date).format("YYYY-MM-DD")
     }
   }
 };

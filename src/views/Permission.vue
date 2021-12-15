@@ -78,9 +78,7 @@ export default {
       if (res) {
         console.log(res.data.list)
         this.list = res.data.list
-        if (res.data.status == 401) {
-          this.$router.replace('/login')
-        } else if (res.data.status == 403) {
+        if (res.data.status == 403) {
           this.$router.replace('403')
         }
       }

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '@/router/index'
 //请求拦截器
 
 const service = axios.create({
@@ -28,6 +29,10 @@ service.interceptors.request.use(
 //响应拦截器
 service.interceptors.response.use(
   function(response) {
+    console.log(response);
+    if(response.data.status === 401){
+      router.replace('/login')
+    }
     return response
   },
   function(error) {
