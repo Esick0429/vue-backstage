@@ -25,6 +25,9 @@
         <el-button type="primary" v-on:click="register()">注册</el-button>
       </el-form-item>
     </el-form>
+    <footer>
+      <a href="https://beian.miit.gov.cn">粤ICP备2021044207号</a>
+    </footer>
   </div>
 </template>
 
@@ -153,5 +156,13 @@ export default {
   text-align: center;
   margin: 0 auto 40px auto;
   color: #303133;
+}
+footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 </style>
