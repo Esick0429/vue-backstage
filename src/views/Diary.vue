@@ -22,8 +22,13 @@
           prop="title"
           label="标题"
           width="180"
-        ></el-table-column>
+        ></el-table-column>  
         <el-table-column prop="content" label="内容"></el-table-column>
+         <el-table-column
+          prop="userName"
+          label="用户"
+          width="180"
+        ></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 点击编辑进入编辑页面进行编辑表格数据 -->
@@ -98,7 +103,7 @@ export default {
       value6: "",
       currentPage: 1,
       total:0,
-      pageSize:5
+      pageSize:10
     };
   },
   created() {
@@ -164,12 +169,16 @@ export default {
         .then(async () => {
           // 移除对应索引位置的数据，可以对row进行设置向后台请求删除数据
           console.log(row);
-          let res = await deleteDiary({id:row.id})
+          let res = await deleteDiary({id:row.id,userName:row.userName})
           if(res){
-            this.$message({
-            type: "success",
-            message: "删除成功!"
-            });
+            if(res.data.status === 200){
+              this.$message({
+              type: "success",
+              message: "删除成功!"
+              });
+            }else if(res.data.status === 403){
+              this.$message.error('删除失败，权限不足')
+            }
             await this.getDiaryData()
           }
         })

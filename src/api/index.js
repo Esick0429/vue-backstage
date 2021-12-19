@@ -62,7 +62,7 @@ export function updateDiary(data) {
 
 export function deleteDiary(data) {
   return request({
-    url: `/api/deleteDiary?id=${data.id}`,
+    url: `/api/deleteDiary?id=${data.id}&userName=${data.userName}`,
     method:'DELETE',
     data
   })
