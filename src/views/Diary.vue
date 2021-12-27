@@ -152,9 +152,10 @@ export default {
           id:this.form.id,
           title:this.form.title,
           content:this.form.content,
-          userName:localStorage.getItem('Username')
+          userName:this.form.userName
         }
         let res = await updateDiary(data)
+        this.flag = 0
       }
       this.getDiaryData()
       this.dialogFormVisible = false;

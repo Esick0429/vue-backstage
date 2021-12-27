@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display:flex;">
     <el-form ref="loginForm" label-width="80px" class="login-box">
       <h3 class="login-title">欢迎登录</h3>
       <el-form-item label="账号" prop="username">
@@ -161,7 +161,7 @@ footer{
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
 }
