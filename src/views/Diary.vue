@@ -2,12 +2,17 @@
   <div class="basetable" v-loading="loading" element-loading-text="拼命加载中">
     <!-- v-loading 设置加载 -->
     <div class="selectMenu">
-      <el-date-picker
+       <el-date-picker
         v-model="value6"
-        type="date"
-        placeholder="选择日期范围"
-      ></el-date-picker>
+        type="daterange"
+        range-separator="至"
+        value-format="timestamp"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期">
+      </el-date-picker>
       <!-- 点击触发add方法 -->
+      <el-button type="primary" @click="getDiaryData" :style="{'marginLeft':'20px'}">查询</el-button>
+      <el-button type="primary" @click="resetDiaryData">重置</el-button>
       <el-button type="primary" @click="add">新增</el-button>
     </div>
     <div class="tableMain">
@@ -100,7 +105,7 @@ export default {
       formLabelWidth: "80px",
       // 设置form用于进行添加的时候绑定值
       form: {},
-      value6: "",
+      value6: '',
       currentPage: 1,
       total:0,
       pageSize:10
@@ -112,11 +117,17 @@ export default {
   },
   methods: {
     async getDiaryData(){
+      if(this.value6 !== '') this.currentPage = 1
       this.loading = true
-      let {data} = await selectDiary({pageIndex:this.currentPage,pageSize:this.pageSize})
+      let {data} = await selectDiary({pageIndex:this.currentPage,pageSize:this.pageSize,startTime:this.value6[0] || 0,endTime:this.value6[1] || 0})
       if(data) this.loading = false
       this.tableData = data.data
       this.total = data.total
+    },
+    async resetDiaryData(){
+      this.currentPage = 1
+      this.value6 = ''
+      await this.getDiaryData()
     },
     // 增加数据的方式，单独的设置一些值，用于增加功能，这些值放在对象里面进行设置，然后将这个新增的对象塞到总数据里面
     add() {

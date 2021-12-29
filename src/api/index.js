@@ -1,4 +1,4 @@
-import request from '@/util/axios'
+import request from '@/util/request'
 
 export function login(data) {
   // console.log('data::',data)
@@ -38,7 +38,7 @@ export function updateInfo(data) {
 
 export function selectDiary(data) {
   return request({
-    url: `/api/getDiary?pageIndex=${data.pageIndex}&pageSize=${data.pageSize}`,
+    url: `/api/getDiary?pageIndex=${data.pageIndex}&pageSize=${data.pageSize}&startTime=${data.startTime}&endTime=${data.endTime}`,
     method: 'GET'
   })
 }
