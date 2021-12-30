@@ -13,7 +13,16 @@ export function select(data) {
   // console.log('data::',data)
   return request({
     url: '/api/select',
-    method: 'POST',
+    method: 'GET',
+    data
+  })
+}
+
+export function getUserInfo(data) {
+  // console.log('data::',data)
+  return request({
+    url: '/api/getUserInfo',
+    method: 'GET',
     data
   })
 }
@@ -68,3 +77,12 @@ export function deleteDiary(data) {
   })
 }
 
+
+export function upload(data){
+  return request({
+    url: `/api/uploadImg`,
+    method:'post',
+    headers:{'Content-Type': 'multipart/form-data'},
+    data
+  })
+}

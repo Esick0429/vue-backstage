@@ -57,25 +57,21 @@ export default {
       console.log(data,"哇哇哇哇啊");
       if (data) {
           let token = data.token
-          let getUserRole = data.authority === 1 ? 'admin' : 'user'
-          let username = data.username
           if (data.status == 200) {
             this.$message.success('欢迎进入我的世界')
             localStorage.setItem('token', token)
-            localStorage.setItem('UserRole', getUserRole)
-            localStorage.setItem('Username', username)
             this.$router.push({
               name: 'rc', //使用params传参需要name，query则是用path
               // path: '/home/rc',
-              params: {
+              // params: {
                 //   info:this.$Base64.encode(JSON.stringify({
                 //   userId:this.username,
                 // }))
                 // userPwd:this.form.password
-                info: this.username
+                // info: this.username
                 // userId: this.form.username,
                 // userPwd:this.form.password
-              }
+              // }
             })
           } else if (data.status == 403) {
             if (this.password.length == 0 || this.username.length == 0) {
@@ -90,49 +86,6 @@ export default {
       }else{
         this.$message.error('请先注册账号')
       }
-      // axios
-      //   .post('/api/login', {
-      //     username: this.username,
-      //     password: this.password
-      //   })
-      //   .then(result => {
-      //     console.log(result.data)
-      //     let token = result.data.token
-      //     let getUserRole = result.data.authority === 1 ? 'admin' : 'user'
-      //     let username = result.data.username
-      //     if (result.data.status == 200) {
-      //       this.$message.success('欢迎进入我的世界')
-      //       localStorage.setItem('token', token)
-      //       localStorage.setItem('UserRole', getUserRole)
-      //       localStorage.setItem('Username', username)
-      //       this.$router.push({
-      //         name: 'rc', //使用params传参需要name，query则是用path
-      //         // path: '/home/rc',
-      //         params: {
-      //           //   info:this.$Base64.encode(JSON.stringify({
-      //           //   userId:this.username,
-      //           // }))
-      //           // userPwd:this.form.password
-      //           info: this.username
-      //           // userId: this.form.username,
-      //           // userPwd:this.form.password
-      //         }
-      //       })
-      //     } else if (result.data.status == 403) {
-      //       if (this.password.length == 0 || this.username.length == 0) {
-      //         this.$message.error('请输入账号和密码')
-      //       } else {
-      //         this.$message.error('账号或密码错误')
-      //       }
-      //     } else if (result.data.status == 1001) {
-      //       this.$message.error('密码错误，青重新输入')
-      //       this.password = ''
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //     this.$message.error('请先注册账号')
-      //   })
     }, 300),
     register() {
       this.$router.replace('/register')

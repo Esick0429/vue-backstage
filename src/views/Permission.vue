@@ -14,6 +14,11 @@
         <el-table-column prop="username" label="用户名" width="180">
         </el-table-column>
         <el-table-column prop="password" label="密码"> </el-table-column>
+        <el-table-column label="头像">
+          <template slot-scope="scope">
+            <el-avatar :src="scope.row.avatarUrl"></el-avatar>
+          </template>
+        </el-table-column>
         <el-table-column label="权限">
           <template slot-scope="scope">
             <span>{{ scope.row.authority }}</span>
@@ -35,18 +40,39 @@
       </el-table>
       <el-dialog title="用户信息" :visible.sync="dialogFormVisible">
         <!-- 在el-dialog中进行嵌套el-form实现弹出表格的效果 -->
-        <el-form :model="form">
+        <el-form :model="form" label-position="left">
           <el-form-item label="用户名" :label-width="formLabelWidth">
             <el-input v-model="form.username" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="密码" :label-width="formLabelWidth">
             <el-input v-model="form.password" auto-complete="off"></el-input>
           </el-form-item>
+          <el-form-item label="头像" label-width="120px">
+            <el-upload
+              class="upload-demo"
+              action=""
+              :auto-upload="false"
+              :limit="1"
+              ref="upload"
+              :http-request="upload"
+              :on-change="sbb"
+              multiple
+              list-type="picture"
+            >
+            <!-- <img v-if="form.avatarUrl" :src="form.avatarUrl" width="150px" height="150px"> -->
+            <el-image v-if="form.avatarUrl" :src="form.avatarUrl" width="150px" height="150px">
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div>
+            </el-image>
+            <i v-else class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="cancel">取 消</el-button>
           <!-- 设置触发更新的方法 -->
-          <el-button type="primary" @click="update">确 定</el-button>
+          <el-button type="primary" @click="update();">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -55,7 +81,7 @@
 
 <script>
 import axios from 'axios'
-import { select, deletePassword, updateInfo } from '../api/index.js'
+import { select, deletePassword, updateInfo, upload } from '../api/index.js'
 export default {
   data() {
     return {
@@ -65,7 +91,9 @@ export default {
       msg: '',
       currentIndex: -1,
       dialogFormVisible: false,
-      formLabelWidth: '80px'
+      formLabelWidth: '80px',
+      fileList: [],
+      avatarUrl: ''
     }
   },
   created() {
@@ -73,7 +101,6 @@ export default {
   },
   methods: {
     async allUser() {
-      console.log(this.list)
       let res = await select({ list: this.list })
       if (res) {
         console.log(res.data.list)
@@ -85,7 +112,6 @@ export default {
     },
     handleEdit(index, row) {
       // eslint-disable-line no-unused-vars
-      console.log(row.id)
       this.form = this.list[index]
       this.currentIndex = index
       this.userid = row.id
@@ -128,24 +154,39 @@ export default {
     cancel() {
       // 取消的时候直接设置对话框不可见即可
       this.dialogFormVisible = false
+      this.$refs.upload.clearFiles()
+      this.fileList = []
     },
-    async update(row) {
+    async update() {
       //   this.form.date = reformat(this.form.date);
       //    可以在html上面进行设置日期的格式化
       //   将我们添加的信息提交到总数据里面
       let username = this.form.username
       let password = this.form.password
-      let id = this.userid
+      let id = this.form.id
       console.log('用户名为' + username)
       console.log('密码' + password)
       console.log('id' + id)
       let res = await updateInfo({ username, password, id })
-      if(res){
-         this.dialogFormVisible = false
+      this.$refs.upload.submit();
+      if (res) {
+        this.cancel()
       }
+    },
+    async upload() {
+      const formData = new FormData()
+      const file = this.fileList[0]
+      formData.append('avatar', file.raw)
+      formData.append('id', this.form.id)
+      formData.append('username', this.form.username)
+      let res2 = await upload(formData)
+      this.fileList = []
+    },
+    sbb(file, fileList) {
+      console.log(file, fileList)
+      this.fileList = fileList
     }
   },
-
   mounted() {
     this.allUser()
   }
