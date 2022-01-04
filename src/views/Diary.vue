@@ -26,15 +26,20 @@
         <el-table-column
           prop="title"
           label="标题"
-          width="180"
+          width="250"
         ></el-table-column>  
-        <el-table-column prop="content" label="内容"></el-table-column>
+        <el-table-column prop="content" label="内容" >
+          <template slot-scope="scope" >
+            <div v-html="scope.row.content"></div>
+            <!-- {{scope.row.content}} -->
+          </template>
+        </el-table-column>
          <el-table-column
           prop="userName"
           label="用户"
-          width="180"
+          width="120"
         ></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="150" fixed="right">
           <template slot-scope="scope">
             <!-- 点击编辑进入编辑页面进行编辑表格数据 -->
             <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
@@ -70,7 +75,8 @@
           <el-input v-model="form.title"></el-input>
         </el-form-item>
         <el-form-item label="内容" :label-width="formLabelWidth">
-          <el-input v-model="form.content" type="textarea"></el-input>
+          <!-- <el-input v-model="form.content" type="textarea"></el-input> -->
+          <editor v-model="form.content" @change="changeEditor"/>
         </el-form-item>
         <!-- <el-form-item label="日期" :label-width="formLabelWidth">
           <el-date-picker
@@ -93,7 +99,11 @@
 <script type="text/ecmascript-6">
 import { selectDiary,addDiary,updateDiary,deleteDiary} from '../api/index'
 import { debounce } from '@/util/debounce'
+import editor from '@/components/common/editor.vue'
 export default {
+  components:{
+    editor:editor
+  },
   data() {
     return {
       loading: true,
@@ -220,6 +230,9 @@ export default {
       var date = row[column.property];
       if(date == undefined){return ''}
       return this.dayjs(date).format("YYYY-MM-DD")
+    },
+    changeEditor(e){
+      console.log(e);
     }
   }
 };

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 const register = () => import(/* webpackChunkName: 'components' */'../components/Register.vue')
-const Home = () => import(/* webpackChunkName: 'components' */'../components/common/Home.vue')
+const Home = () => import(/* webpackChunkName: 'components' */'../components/layout/Home.vue')
 const Diary = () => import(/* webpackChunkName: 'views' */'../views/Diary.vue')
 const Login = () =>import(/* webpackChunkName: 'components' */'../components/Login.vue')
 const From = () =>import(/* webpackChunkName: 'views' */'../views/From.vue')

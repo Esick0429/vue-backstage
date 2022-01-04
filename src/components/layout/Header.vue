@@ -32,12 +32,13 @@
           <!-- <div class="user-name el-dropdown" trigger="click"> -->
           <el-dropdown trigger="click">
             <div class="user-name">
-                <div class="user-avatar">
-                  <el-avatar size="medium" :src="userInfo.avatarUrl"></el-avatar>
-                </div>
-                <span class="el-dropdown-link hidden-xs-only">
-                  {{ userInfo.username }}<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
+              <div class="user-avatar">
+                <el-avatar size="medium" :src="userInfo.avatarUrl"></el-avatar>
+              </div>
+              <span class="el-dropdown-link hidden-xs-only">
+                {{ userInfo.username
+                }}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
             </div>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="goRegister"
@@ -57,7 +58,7 @@
 
 <script>
 import screenfull from 'screenfull'
-import {getUserInfo} from '../../api/index'
+import { getUserInfo } from '../../api/index'
 // import bus from './bus'
 export default {
   name: 'vHeader',
@@ -66,7 +67,7 @@ export default {
       playMusic: true,
       fullscreenLoading: false,
       // userId:JSON.parse(this.$Base64.decode(this.$route.params.info)).userId,
-      userInfo:{},
+      userInfo: {},
       // isCollapse: false,
       isFullscreen: false
       // screenWidth:document.body.clientWidth
@@ -84,8 +85,10 @@ export default {
     }
     let res = await getUserInfo()
     this.userInfo = res.data
-     let getUserRole = this.userInfo.authority === 1 ? 'admin' : 'user'
-      localStorage.setItem('UserRole', getUserRole)
+    let getUserRole = this.userInfo.authority === 1 ? 'admin' : 'user'
+    let username = this.userInfo.username
+    localStorage.setItem('UserRole', getUserRole)
+    localStorage.setItem('Username', username)
   },
   mounted() {
     this.ssWidth = document.documentElement.clientWidth
@@ -94,8 +97,6 @@ export default {
       this.$store.commit('openIsc')
     }
     this.watchWidth()
-     
-
   },
   methods: {
     isC() {
