@@ -180,7 +180,7 @@ export default {
       formData.append('id', this.form.id)
       formData.append('username', this.form.username)
       let res2 = await upload(formData)
-      this.fileList = []
+      this.$refs.upload.clearFiles()
     },
     sbb(file, fileList) {
       console.log(file, fileList)

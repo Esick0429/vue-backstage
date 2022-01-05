@@ -4,6 +4,7 @@ const register = () => import(/* webpackChunkName: 'components' */'../components
 const Home = () => import(/* webpackChunkName: 'components' */'../components/layout/Home.vue')
 const Diary = () => import(/* webpackChunkName: 'views' */'../views/Diary.vue')
 const Login = () =>import(/* webpackChunkName: 'components' */'../components/Login.vue')
+const Gallery = () =>import(/* webpackChunkName: 'views' */'../views/Gallery.vue')
 const From = () =>import(/* webpackChunkName: 'views' */'../views/From.vue')
 const Miss = () =>import(/* webpackChunkName: 'views' */'../views/500.vue')
 const Miss2 = () =>import(/* webpackChunkName: 'views' */'../views/404.vue')
@@ -107,6 +108,14 @@ const routes = [
         component:Music,
         meta:{
           title:'盗版云音乐',
+          roles: ['user', 'admin']
+        }
+      },
+      {
+        path:'Gallery',
+        component:Gallery,
+        meta:{
+          title:'图库',
           roles: ['user', 'admin']
         }
       },

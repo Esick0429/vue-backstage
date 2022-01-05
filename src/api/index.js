@@ -86,3 +86,19 @@ export function upload(data){
     data
   })
 }
+
+export function getImgs(data){
+  return request({
+    url: `/api/getImgs`,
+    method:'GET',
+    data
+  })
+}
+
+export function deleteImg(data){
+  return request({
+    url: `/api/deleteImgs?id=${data.id}&imgName=${data.imgName}`,
+    method:'DELETE',
+    data
+  })
+}

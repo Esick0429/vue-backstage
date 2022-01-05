@@ -76,6 +76,11 @@ export default {
                     title: '日记'
                 },
                 {
+                    icon: 'el-icon-s-grid',
+                    index:'Gallery',
+                    title: '图库'
+                },
+                {
                     icon: 'el-icon-s-order',
                     index: '3',
                     title: '表单相关',
