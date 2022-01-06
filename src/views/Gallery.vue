@@ -6,11 +6,13 @@
         <el-upload
           class="upload-demo"
           action
+          accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
           :auto-upload="true"
           :limit="4"
           ref="upload"
           :http-request="upload"
           :on-change="sbb"
+          :before-upload="beforeUpload"
           multiple
           :show-file-list="false"
         >
@@ -36,7 +38,7 @@
                 @click="deleteImg(item)"
               ></el-button>
               <div>
-                <el-image :src="`http://127.0.0.1:4000${item.imgUrl}`" fit="cover" lazy></el-image>
+                <el-image :src="item.imgUrl" fit="cover" lazy  :preview-src-list="bigImgList"></el-image>
                 <div>{{ item.imgName }}</div>
               </div>
             </el-card>
@@ -55,7 +57,8 @@ export default {
     return {
       fileList: [],
       imgList: [],
-      loading: true
+      loading: true,
+      bigImgList :[]
     }
   },
   mounted() {
@@ -71,15 +74,20 @@ export default {
         }, 200)
       }
       this.imgList = res.data.data.list
+      for(let i of this.imgList){
+        this.bigImgList.push(i.imgUrl)
+      }
     },
     async upload() {
       const formData = new FormData()
       const file = this.fileList[0]
-      formData.append('avatar', file.raw)
+      formData.append('image', file.raw)
       let res2 = await upload(formData)
-      if (res2) {
+      if (res2.data.status !== 700) {
         this.getImgs()
         this.$message.success('上传成功')
+      }else{
+        this.$message.error('上传文件格式错误，请检查')
       }
       this.$refs.upload.clearFiles()
     },
@@ -87,6 +95,19 @@ export default {
       console.log(file, fileList)
       this.fileList = fileList
     },
+    beforeUpload(file) {
+        const isJPG = file.type.split('/')[0] === 'image';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('只能上传图片');
+          return false
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+          return false
+        }
+      },
     deleteImg(item) {
       this.$confirm('是否删除此图片', '提示', {
         confirmButtonText: '确定',
