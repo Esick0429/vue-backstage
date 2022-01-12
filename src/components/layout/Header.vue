@@ -18,7 +18,7 @@
       </el-col>
       <audio
         id="audio"
-        :src="require('../../assets/audio/给我一首歌的时间-周杰伦.mp3')"
+        src="https://api.esick.xyz/audio/zty.mp3"
       ></audio>
       <div class="header-right hidden-xs-and-down" :xs="3">
         <div class="header-user-con">

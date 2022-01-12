@@ -40,8 +40,8 @@ export default {
   name: 'login',
   data() {
     return {
-      username: '',
-      password: ''
+      username: 'user',
+      password: '123456'
     }
   },
   mounted() {},

@@ -119,22 +119,12 @@ export default {
       // 将数据的index传递过来用于实现数据的回显
     },
     handleDelete(index, row) {
-      // eslint-disable-line no-unused-vars
-      console.log(row.id)
-      // 设置类似于console类型的功能
-      this.$confirm('永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('是否删除该账号?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(async () => {
-          // axios.post('/api/delete', { id: row.id }).then(result => {
-          //   // this.list.splice(index, 1)
-          //   this.$message({
-          //     type: 'success',
-          //     message: '删除成功!'
-          //   })
-          // })
           let res = await deletePassword({ id: row.id })
           if (res) {
             this.$message({
@@ -142,7 +132,7 @@ export default {
               message: '删除成功!'
             })
           }
-          // 移除对应索引位置的数据，可以对row进行设置向后台请求删除数据
+          this.allUser()
         })
         .catch(() => {
           this.$message({
@@ -176,7 +166,7 @@ export default {
     async upload() {
       const formData = new FormData()
       const file = this.fileList[0]
-      formData.append('avatar', file.raw)
+      formData.append('image', file.raw)
       formData.append('id', this.form.id)
       formData.append('username', this.form.username)
       let res2 = await upload(formData)

@@ -9,6 +9,14 @@ export function login(data) {
   })
 }
 
+export function register(data){
+  return request({
+    url:`/api/register`,
+    method:'POST',
+    data
+  })
+}
+
 export function select(data) {
   // console.log('data::',data)
   return request({

@@ -33,8 +33,7 @@
 </template>
 
 <script>
-import axios from "axios";
-// import {login} from '../api/index';
+import { register } from "../api";
   export default {
     name: "",
     data() {
@@ -67,29 +66,26 @@ import axios from "axios";
         goBack(){
                  this.$router.replace({path: '/login'});
         },
-     register(){
+     async register(){
             this.verify()
-            axios.post('/api/register',{username:this.username,password:this.pwd})
-            .then(result=>{
-                this.msg = result.data.msg;
-                if(result.data.status == 200){
+            let res = await register({username:this.username,password:this.pwd})
+            if(res.data.status == 200){
+               this.msg = res.data.msg;
+                if(res.data.status == 200){
                   this.$message({
                     message: '恭喜你，注册成功',
                     type: 'success'
                   })
                   this.$router.replace('/login')
-                }else if(result.data.status == 1){
+                }else if(res.data.status == 1){
                  if(this.pwd.length == 0 || this.username.length == 0){
                   this.$message.error('请输入账号和密码')
                 }
-               }else if(result.data.status == 1002){
+               }else if(res.data.status == 1002){
                  this.$message.error('用户名已被占用');
                  this.username = ''
                }
-            })
-            .catch(err=>{
-                console.log(err)
-            })           
+            }
         }
     }
   }

@@ -84,6 +84,7 @@
           'foreColor', // 文字颜色
           'image',//图片
           // 'backColor', // 背景颜色
+          'code',
           'justify', // 对齐方式
           'undo', // 撤销
           'redo', // 重复

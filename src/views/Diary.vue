@@ -31,7 +31,6 @@
         <el-table-column prop="content" label="内容" >
           <template slot-scope="scope" >
             <div v-html="scope.row.content"></div>
-            <!-- {{scope.row.content}} -->
           </template>
         </el-table-column>
          <el-table-column
@@ -42,15 +41,20 @@
         <el-table-column label="操作" width="150" fixed="right">
           <template slot-scope="scope">
             <!-- 点击编辑进入编辑页面进行编辑表格数据 -->
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-              >编辑</el-button
-            >
-            <el-button
+            <span v-if="userName === 'admin'?true:false">
+              <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+             >编辑</el-button
+              >
+            </span>
+            <span>
+               <el-button
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
               >删除</el-button
             >
+            </span>
+           
           </template>
         </el-table-column>
       </el-table>
@@ -59,7 +63,7 @@
       <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage"
+      :current-page.sync="currentPage"
       :page-sizes="[5, 10, 20, 50]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
@@ -111,6 +115,7 @@ export default {
       //   表格的数据
       tableData:[],
       flag : 0,
+      userName:localStorage.getItem('Username'),
       dialogFormVisible: false,
       formLabelWidth: "80px",
       // 设置form用于进行添加的时候绑定值
@@ -127,10 +132,11 @@ export default {
   },
   methods: {
     async getDiaryData(){
-      if(this.value6 !== '') this.currentPage = 1
       this.loading = true
       let {data} = await selectDiary({pageIndex:this.currentPage,pageSize:this.pageSize,startTime:this.value6[0] || 0,endTime:this.value6[1] || 0})
-      if(data) this.loading = false
+      if(data) setTimeout(()=>{
+        this.loading = false
+      },200)
       this.tableData = data.data
       this.total = data.total
     },
