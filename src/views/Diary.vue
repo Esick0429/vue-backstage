@@ -28,7 +28,7 @@
           label="标题"
           width="250"
         ></el-table-column>  
-        <el-table-column prop="content" label="内容" >
+        <el-table-column prop="content" label="内容" min-width="800px">
           <template slot-scope="scope" >
             <div v-html="scope.row.content"></div>
           </template>
@@ -41,20 +41,15 @@
         <el-table-column label="操作" width="150" fixed="right">
           <template slot-scope="scope">
             <!-- 点击编辑进入编辑页面进行编辑表格数据 -->
-            <span v-if="userName === 'admin'?true:false">
               <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
              >编辑</el-button
               >
-            </span>
-            <span>
                <el-button
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
               >删除</el-button
             >
-            </span>
-           
           </template>
         </el-table-column>
       </el-table>
@@ -115,7 +110,6 @@ export default {
       //   表格的数据
       tableData:[],
       flag : 0,
-      userName:localStorage.getItem('Username'),
       dialogFormVisible: false,
       formLabelWidth: "80px",
       // 设置form用于进行添加的时候绑定值

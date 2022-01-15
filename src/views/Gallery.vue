@@ -1,7 +1,9 @@
 <template>
   <div>
-    <el-container style="
-    flex-direction: column;">
+    <el-container
+      style="
+    flex-direction: column;"
+    >
       <div>
         <el-upload
           class="upload-demo"
@@ -20,27 +22,43 @@
         </el-upload>
       </div>
       <el-main v-loading="loading">
-        <el-row :gutter="20">
-          <el-col :span="6" v-for="item in imgList" :key="item.id" style="margin-bottom:20px">
+        <el-row :gutter="20" type="flex" style="flex-wrap:wrap">
+          <el-col
+            :span="6"
+            v-for="item in imgList"
+            :key="item.id"
+            style="margin-bottom:20px"
+          >
             <el-card
               :body-style="{
                 padding: '0px',
                 height: '100%',
                 width: '100%',
-                textAlign: 'center'
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between'
               }"
+              style="height:100%"
             >
-              <el-button
-                icon="el-icon-close"
-                style="float:right;"
-                circle
-                :plain="true"
-                @click="deleteImg(item)"
-              ></el-button>
-              <div>
-                <el-image :src="item.imgUrl" fit="cover" lazy  :preview-src-list="bigImgList"></el-image>
-                <div>{{ item.imgName }}</div>
+              <div :style="{ width: '100%' }">
+                <el-button
+                  icon="el-icon-close"
+                  style="float:right;"
+                  circle
+                  :plain="true"
+                  @click="deleteImg(item)"
+                ></el-button>
               </div>
+              <el-image
+                :src="item.imgUrl"
+                fit="cover"
+                lazy
+                :preview-src-list="bigImgList"
+              ></el-image>
+              <span :style="{ position: 'relative', 'font-size': '0.7vw' }">{{
+                item.imgName
+              }}</span>
             </el-card>
           </el-col>
         </el-row>
@@ -58,7 +76,7 @@ export default {
       fileList: [],
       imgList: [],
       loading: true,
-      bigImgList :[]
+      bigImgList: []
     }
   },
   mounted() {
@@ -74,7 +92,7 @@ export default {
         }, 200)
       }
       this.imgList = res.data.data.list
-      for(let i of this.imgList){
+      for (let i of this.imgList) {
         this.bigImgList.push(i.imgUrl)
       }
     },
@@ -86,7 +104,7 @@ export default {
       if (res2.data.status !== 700) {
         this.getImgs()
         this.$message.success('上传成功')
-      }else{
+      } else {
         this.$message.error('上传文件格式错误，请检查')
       }
       this.$refs.upload.clearFiles()
@@ -96,18 +114,18 @@ export default {
       this.fileList = fileList
     },
     beforeUpload(file) {
-        const isJPG = file.type.split('/')[0] === 'image';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+      const isJPG = file.type.split('/')[0] === 'image'
+      const isLt2M = file.size / 1024 / 1024 < 2
 
-        if (!isJPG) {
-          this.$message.error('只能上传图片');
-          return false
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-          return false
-        }
-      },
+      if (!isJPG) {
+        this.$message.error('只能上传图片')
+        return false
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+        return false
+      }
+    },
     deleteImg(item) {
       this.$confirm('是否删除此图片', '提示', {
         confirmButtonText: '确定',
