@@ -9,10 +9,10 @@ export function login(data) {
   })
 }
 
-export function register(data){
+export function register(data) {
   return request({
-    url:`/api/register`,
-    method:'POST',
+    url: `/api/register`,
+    method: 'POST',
     data
   })
 }
@@ -60,11 +60,10 @@ export function selectDiary(data) {
   })
 }
 
-
 export function addDiary(data) {
   return request({
     url: `/api/addDiary`,
-    method:'POST',
+    method: 'POST',
     data
   })
 }
@@ -72,7 +71,7 @@ export function addDiary(data) {
 export function updateDiary(data) {
   return request({
     url: `/api/updateDiary`,
-    method:'POST',
+    method: 'POST',
     data
   })
 }
@@ -80,33 +79,32 @@ export function updateDiary(data) {
 export function deleteDiary(data) {
   return request({
     url: `/api/deleteDiary?id=${data.id}&userName=${data.userName}`,
-    method:'DELETE',
+    method: 'DELETE',
     data
   })
 }
 
-
-export function upload(data){
+export function upload(data) {
   return request({
     url: `/api/uploadImg`,
-    method:'post',
-    headers:{'Content-Type': 'multipart/form-data'},
+    method: 'post',
+    headers: { 'Content-Type': 'multipart/form-data' },
     data
   })
 }
 
-export function getImgs(data){
+export function getImgs(data) {
   return request({
     url: `/api/getImgs`,
-    method:'GET',
+    method: 'GET',
     data
   })
 }
 
-export function deleteImg(data){
+export function deleteImg(data) {
   return request({
     url: `/api/deleteImgs?id=${data.id}&imgName=${data.imgName}`,
-    method:'DELETE',
+    method: 'DELETE',
     data
   })
 }

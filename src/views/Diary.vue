@@ -2,67 +2,42 @@
   <div class="basetable" v-loading="loading" element-loading-text="拼命加载中">
     <!-- v-loading 设置加载 -->
     <div class="selectMenu">
-       <el-date-picker
-        v-model="value6"
-        type="daterange"
-        range-separator="至"
-        value-format="timestamp"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期">
+      <el-date-picker v-model="value6" type="daterange" range-separator="至" value-format="timestamp" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
       <!-- 点击触发add方法 -->
-      <el-button type="primary" @click="getDiaryData" :style="{'marginLeft':'20px'}">查询</el-button>
+      <el-button type="primary" @click="getDiaryData" :style="{ marginLeft: '20px' }">查询</el-button>
       <el-button type="primary" @click="resetDiaryData">重置</el-button>
       <el-button type="primary" @click="add">新增</el-button>
     </div>
     <div class="tableMain">
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column
-          prop="date"
-          label="日期"
-          width="180"
-          :formatter="formatDate"
-        ></el-table-column>
-        <el-table-column
-          prop="title"
-          label="标题"
-          width="250"
-        ></el-table-column>  
+        <el-table-column prop="date" label="日期" width="180" :formatter="formatDate"></el-table-column>
+        <el-table-column prop="title" label="标题" width="250"></el-table-column>
         <el-table-column prop="content" label="内容" min-width="800px">
-          <template slot-scope="scope" >
+          <template slot-scope="scope">
             <div v-html="scope.row.content"></div>
           </template>
         </el-table-column>
-         <el-table-column
-          prop="userName"
-          label="用户"
-          width="120"
-        ></el-table-column>
+        <el-table-column prop="userName" label="用户" width="120"></el-table-column>
         <el-table-column label="操作" width="150" fixed="right">
           <template slot-scope="scope">
             <!-- 点击编辑进入编辑页面进行编辑表格数据 -->
-              <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-             >编辑</el-button
-              >
-               <el-button
-              size="small"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >删除</el-button
-            >
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
     <div class="page">
       <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page.sync="currentPage"
-      :page-sizes="[5, 10, 20, 50]"
-      :page-size="pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-sizes="[5, 10, 20, 50]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
       </el-pagination>
     </div>
     <!-- 下面这个用来设置点击添加按钮的弹出框，里面可以进行嵌套表格来展示弹出的表格信息,使用下面的:visible.sync来控制显示与否 -->
@@ -75,7 +50,7 @@
         </el-form-item>
         <el-form-item label="内容" :label-width="formLabelWidth">
           <!-- <el-input v-model="form.content" type="textarea"></el-input> -->
-          <editor v-model="form.content" @change="changeEditor"/>
+          <editor v-model="form.content" @change="changeEditor" />
         </el-form-item>
         <!-- <el-form-item label="日期" :label-width="formLabelWidth">
           <el-date-picker

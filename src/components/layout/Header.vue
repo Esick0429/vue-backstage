@@ -1,12 +1,8 @@
 <template>
   <header>
     <el-row justify="space-between" type="flex">
-      <el-col class="header-left " :xs="12" :sm="12" :lg="12" :md="12">
-        <div
-          class="logo-icon hidden-xs-and-down"
-          @click="isC"
-          v-loading.fullscreen.lock="fullscreenLoading"
-        >
+      <el-col class="header-left" :xs="12" :sm="12" :lg="12" :md="12">
+        <div class="logo-icon hidden-xs-and-down" @click="isC" v-loading.fullscreen.lock="fullscreenLoading">
           <i v-show="!isCollapse" class="el-icon-s-fold"></i>
           <i v-show="isCollapse" class="el-icon-s-unfold"></i>
         </div>
@@ -16,10 +12,7 @@
           <i v-show="!playMusic" class="el-icon-video-pause"></i>
         </span>
       </el-col>
-      <audio
-        id="audio"
-        src="https://api.esick.xyz/audio/zty.mp3"
-      ></audio>
+      <audio id="audio" src="https://api.esick.xyz/audio/zty.mp3"></audio>
       <div class="header-right hidden-xs-and-down" :xs="3">
         <div class="header-user-con">
           <div class="btn-fullscreen hidden-xs-only" @click="clickFullscreen">
@@ -35,18 +28,11 @@
               <div class="user-avatar">
                 <el-avatar size="medium" :src="userInfo.avatarUrl"></el-avatar>
               </div>
-              <span class="el-dropdown-link hidden-xs-only">
-                {{ userInfo.username
-                }}<i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
+              <span class="el-dropdown-link hidden-xs-only"> {{ userInfo.username }}<i class="el-icon-arrow-down el-icon--right"></i> </span>
             </div>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="goRegister"
-                >注册账号</el-dropdown-item
-              >
-              <el-dropdown-item @click.native="exitLogin"
-                >退出登录</el-dropdown-item
-              >
+              <el-dropdown-item @click.native="goRegister">注册账号</el-dropdown-item>
+              <el-dropdown-item @click.native="exitLogin">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <!-- </div> -->
@@ -61,7 +47,7 @@ import screenfull from 'screenfull'
 import { getUserInfo } from '../../api/index'
 // import bus from './bus'
 export default {
-  name: 'vHeader',
+  name: 'VHeader',
   data() {
     return {
       playMusic: true,

@@ -2,17 +2,13 @@
   <div>
     <div class="crumbs">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item
-          ><i class="el-icon-lx-warn"></i> 权限测试</el-breadcrumb-item
-        >
+        <el-breadcrumb-item><i class="el-icon-lx-warn"></i> 权限测试</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="container">
       <el-table :data="list" style="width: 100%">
-        <el-table-column prop="id" label="用户ID" width="180">
-        </el-table-column>
-        <el-table-column prop="username" label="用户名" width="180">
-        </el-table-column>
+        <el-table-column prop="id" label="用户ID" width="180"> </el-table-column>
+        <el-table-column prop="username" label="用户名" width="180"> </el-table-column>
         <el-table-column prop="password" label="密码"> </el-table-column>
         <el-table-column label="头像">
           <template slot-scope="scope">
@@ -26,15 +22,8 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-              >编辑</el-button
-            >
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >删除</el-button
-            >
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -59,20 +48,20 @@
               multiple
               list-type="picture"
             >
-            <!-- <img v-if="form.avatarUrl" :src="form.avatarUrl" width="150px" height="150px"> -->
-            <el-image v-if="form.avatarUrl" :src="form.avatarUrl" width="150px" height="150px">
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div>
-            </el-image>
-            <i v-else class="el-icon-plus"></i>
+              <!-- <img v-if="form.avatarUrl" :src="form.avatarUrl" width="150px" height="150px"> -->
+              <el-image v-if="form.avatarUrl" :src="form.avatarUrl" width="150px" height="150px">
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+              <i v-else class="el-icon-plus"></i>
             </el-upload>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="cancel">取 消</el-button>
           <!-- 设置触发更新的方法 -->
-          <el-button type="primary" @click="update();">确 定</el-button>
+          <el-button type="primary" @click="update()">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -158,7 +147,7 @@ export default {
       console.log('密码' + password)
       console.log('id' + id)
       let res = await updateInfo({ username, password, id })
-      this.$refs.upload.submit();
+      this.$refs.upload.submit()
       if (res) {
         this.cancel()
       }

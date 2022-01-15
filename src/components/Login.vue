@@ -4,27 +4,15 @@
       <el-form ref="loginForm" label-width="80px" label-position="left">
         <h3 class="login-title">欢迎登录</h3>
         <el-form-item label="账号" prop="username">
-          <el-input
-            type="text"
-            placeholder="请输入账号"
-            id="username"
-            oncopy="return false"
-            v-model="username"
-          />
+          <el-input type="text" placeholder="请输入账号" id="username" oncopy="return false" v-model="username" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input
-            show-password
-            placeholder="请输入密码"
-            id="password"
-            v-model="password"
-            @keyup.enter.native="login()"
-          />
+          <el-input show-password placeholder="请输入密码" id="password" v-model="password" @keyup.enter.native="login()" />
         </el-form-item>
         <el-form-item>
-          <div style="display:flex;">
-            <el-button type="primary" v-on:click="login()">登录</el-button>
-            <el-button type="primary" v-on:click="register()">注册</el-button>
+          <div style="display: flex">
+            <el-button type="primary" @click="login()">登录</el-button>
+            <el-button type="primary" @click="register()">注册</el-button>
           </div>
         </el-form-item>
       </el-form>
@@ -41,11 +29,11 @@ import { login } from '../api/index.js'
 import { debounce } from '@/util/debounce'
 import { mapMutations } from 'vuex'
 export default {
-  name: 'login',
+  name: 'Login',
   data() {
     return {
       username: 'user',
-      password: '123456',
+      password: '123456'
     }
   },
   mounted() {},
@@ -56,7 +44,7 @@ export default {
       console.log(username)
       let { data } = await login({
         username: this.username,
-        password: this.password,
+        password: this.password
       })
       console.log(data, '哇哇哇哇啊')
       if (data) {
@@ -65,7 +53,7 @@ export default {
           this.$message.success('欢迎进入我的世界')
           localStorage.setItem('token', token)
           this.$router.push({
-            name: 'rc', //使用params传参需要name，query则是用path
+            name: 'rc' //使用params传参需要name，query则是用path
           })
         } else if (data.status == 403) {
           if (this.password.length == 0 || this.username.length == 0) {
@@ -83,21 +71,20 @@ export default {
     }, 300),
     register() {
       this.$router.replace('/register')
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    // background: url('https://api.esick.xyz/images/image_1641991545979_wallhaven-v93o35.jpg') no-repeat fixed;
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  // background: url('https://api.esick.xyz/images/image_1641991545979_wallhaven-v93o35.jpg') no-repeat fixed;
 }
-
 
 .login-title {
   text-align: center;
@@ -105,7 +92,7 @@ export default {
   color: #303133;
 }
 
-.loginBox{
+.loginBox {
   padding: 35px;
   border: 1px solid #000;
   border-radius: 5px;

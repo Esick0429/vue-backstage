@@ -5,22 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isCollapse: false,
-   
+    isCollapse: false
   },
   mutations: {
-    changeIsc(state){
+    changeIsc(state) {
       state.isCollapse = !state.isCollapse
     },
-    openIsc(state){
+    openIsc(state) {
       state.isCollapse = true
     },
-    closeIsc(state){
+    closeIsc(state) {
       state.isCollapse = false
-    },
+    }
   },
-  actions: {
-  },
-  modules: {
-  }
+  actions: {},
+  modules: {}
 })

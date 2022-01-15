@@ -1,9 +1,6 @@
 <template>
   <div>
-    <el-container
-      style="
-    flex-direction: column;"
-    >
+    <el-container style="flex-direction: column">
       <div>
         <el-upload
           class="upload-demo"
@@ -22,13 +19,8 @@
         </el-upload>
       </div>
       <el-main v-loading="loading">
-        <el-row :gutter="20" type="flex" style="flex-wrap:wrap">
-          <el-col
-            :span="6"
-            v-for="item in imgList"
-            :key="item.id"
-            style="margin-bottom:20px"
-          >
+        <el-row :gutter="20" type="flex" style="flex-wrap: wrap">
+          <el-col :span="6" v-for="item in imgList" :key="item.id" style="margin-bottom: 20px">
             <el-card
               :body-style="{
                 padding: '0px',
@@ -39,26 +31,13 @@
                 alignItems: 'center',
                 justifyContent: 'space-between'
               }"
-              style="height:100%"
+              style="height: 100%"
             >
               <div :style="{ width: '100%' }">
-                <el-button
-                  icon="el-icon-close"
-                  style="float:right;"
-                  circle
-                  :plain="true"
-                  @click="deleteImg(item)"
-                ></el-button>
+                <el-button icon="el-icon-close" style="float: right" circle :plain="true" @click="deleteImg(item)"></el-button>
               </div>
-              <el-image
-                :src="item.imgUrl"
-                fit="cover"
-                lazy
-                :preview-src-list="bigImgList"
-              ></el-image>
-              <span :style="{ position: 'relative', 'font-size': '0.7vw' }">{{
-                item.imgName
-              }}</span>
+              <el-image :src="item.imgUrl" fit="cover" lazy :preview-src-list="bigImgList"></el-image>
+              <span :style="{ position: 'relative', 'font-size': '0.7vw' }">{{ item.imgName }}</span>
             </el-card>
           </el-col>
         </el-row>

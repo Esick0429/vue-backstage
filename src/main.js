@@ -8,8 +8,8 @@ import VueAMap from 'vue-amap'
 import VueAxios from 'vue-axios'
 import 'element-ui/lib/theme-chalk/display.css'
 import store from './store'
-import dayjs from "dayjs"
-Vue.prototype.dayjs = dayjs;//可以全局使用dayjs
+import dayjs from 'dayjs'
+Vue.prototype.dayjs = dayjs //可以全局使用dayjs
 Vue.use(VueAMap)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -20,21 +20,14 @@ Vue.prototype.$Base64 = Base64
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App)
 }).$mount('#app')
 
 VueAMap.initAMapApiLoader({
   // 高德的key
   key: 'a1b0236bbdc982373ca4c331d9d944f0',
   // 插件集合
-  plugin: [
-    'AMap.Autocomplete',
-    'AMap.Geolocation',
-    'AMap.Scale',
-    'AMap.OverView',
-    'AMap.ToolBar',
-    'AMap.MapType'
-  ],
+  plugin: ['AMap.Autocomplete', 'AMap.Geolocation', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType'],
   // 高德 sdk 版本，默认为 1.4.4
   v: '1.4.4'
 })
