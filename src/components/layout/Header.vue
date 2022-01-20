@@ -6,7 +6,7 @@
           <i v-show="!isCollapse" class="el-icon-s-fold"></i>
           <i v-show="isCollapse" class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">菜单管理系统</div>
+        <div class="logo">日记管理系统</div>
         <span class="isPlaymusic hidden-sm-and-down" @click="audioPlay">
           <i v-show="playMusic" class="el-icon-video-play"></i>
           <i v-show="!playMusic" class="el-icon-video-pause"></i>
@@ -63,23 +63,22 @@ export default {
   components: {},
   async created() {
     // //页面初始化获取页面的宽度,小于500 show为true
-    this.screenWidth = document.body.clientWidth
-    if (this.screenWidth < 768) {
-      this.isCollapse = true
-    } else {
-      this.isCollapse = false
-    }
+    // this.screenWidth = document.body.clientWidth
+    // if (this.screenWidth < 768) {
+    //   this.isCollapse = true
+    // } else {
+    //   this.isCollapse = false
+    // }
     let res = await getUserInfo()
     this.userInfo = res.data
     let getUserRole = this.userInfo.authority === 1 ? 'admin' : 'user'
-    let username = this.userInfo.username
     localStorage.setItem('UserRole', getUserRole)
-    localStorage.setItem('Username', username)
+    this.$store.commit('changeUserName', this.userInfo.username)
   },
   mounted() {
     this.ssWidth = document.documentElement.clientWidth
     if (this.ssWidth < 900) {
-      this.isCollapse = true
+      // this.isCollapse = true
       this.$store.commit('openIsc')
     }
     this.watchWidth()
@@ -128,11 +127,11 @@ export default {
       }
     },
     closeCollapse() {
-      this.isCollapse = true
+      // this.isCollapse = true
       this.$store.commit('openIsc')
     },
     openCollapse() {
-      this.isCollapse = false
+      // this.isCollapse = false
       this.$store.commit('closeIsc')
     },
     watchWidth() {
@@ -149,16 +148,17 @@ export default {
       }
     }
   },
-  watch: {
-    // 监听浏览器窗口宽度,当浏览器窗口小于500时,显示详情
-    screenWidth(val) {
-      if (val < 768) {
-        this.isCollapse = false
-      } else {
-        this.isCollapse = true
-      }
-    }
-  },
+  // watch: {
+  //   // 监听浏览器窗口宽度,当浏览器窗口小于500时,显示详情
+  //   screenWidth(val) {
+  //     if (val < 768) {
+  //       this.isCollapse = false
+  //       console.log(111)
+  //     } else {
+  //       this.isCollapse = true
+  //     }
+  //   }
+  // },
   computed: {
     isCollapse: {
       get() {

@@ -10,6 +10,7 @@
         active-text-color="#20a0ff"
         unique-opened
         router
+        @select="bbb"
       >
         <template v-for="item in items">
           <template v-if="item.subs">
@@ -143,7 +144,15 @@ export default {
   mounted() {
     console.log(this.isCollapse)
   },
-  methods: {},
+  methods: {
+    bbb(a, b) {
+      this.ssWidth = document.documentElement.clientWidth
+      if (this.ssWidth < 900) {
+        this.isCollapse = true
+        this.$store.commit('openIsc')
+      }
+    }
+  },
   computed: {
     onRoutes() {
       return this.$route.path.replace('/', '')

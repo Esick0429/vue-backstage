@@ -100,7 +100,7 @@ header{
     }
     .sidebar{
         position: absolute;
-        z-index: 200;
+        z-index: 20000;
         overflow: auto;
     }
     .el-menu--collapse{

@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isCollapse: false
+    isCollapse: false,
+    userName: ''
   },
   mutations: {
     changeIsc(state) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     closeIsc(state) {
       state.isCollapse = false
+    },
+    changeUserName(state, num) {
+      state.userName = num
     }
   },
   actions: {},

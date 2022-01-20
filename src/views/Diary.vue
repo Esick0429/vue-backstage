@@ -18,6 +18,7 @@
             <div v-html="scope.row.content"></div>
           </template>
         </el-table-column>
+        <el-table-column prop="updateTime" label="最后编辑时间" width="180" :formatter="formatDate"></el-table-column>
         <el-table-column prop="userName" label="用户" width="120"></el-table-column>
         <el-table-column label="操作" width="150" fixed="right">
           <template slot-scope="scope">
@@ -46,7 +47,7 @@
       <!-- 在el-dialog中进行嵌套el-form实现弹出表格的效果 -->
       <el-form :model="form">
         <el-form-item label="标题" :label-width="formLabelWidth">
-          <el-input v-model="form.title"></el-input>
+          <el-input v-model="form.title" maxlength="30"></el-input>
         </el-form-item>
         <el-form-item label="内容" :label-width="formLabelWidth">
           <!-- <el-input v-model="form.content" type="textarea"></el-input> -->
@@ -99,6 +100,8 @@ export default {
     //   设置回调函数，进行1.5秒的loading动画显示
     this.getDiaryData()
   },
+  mounted() {
+  },
   methods: {
     async getDiaryData(){
       this.loading = true
@@ -137,9 +140,10 @@ export default {
       //    可以在html上面进行设置日期的格式化
       //   将我们添加的信息提交到总数据里面
       console.log(this.form);
+      console.log(this.userName);
       if(this.flag == 0){
         let data = {
-          userName:localStorage.getItem('Username'),
+          userName:this.$store.state.userName,
           ...this.form
         }
       let res = await addDiary(data)
@@ -151,6 +155,11 @@ export default {
           userName:this.form.userName
         }
         let res = await updateDiary(data)
+        if(res.data.status === 403){
+              this.$message.error('修改失败，权限不足')
+        }else{
+              this.$message.success('修改成功')
+        }
         this.flag = 0
       }
       this.getDiaryData()
@@ -204,12 +213,21 @@ export default {
     formatDate(row,column){
       var date = row[column.property];
       if(date == undefined){return ''}
-      return this.dayjs(date).format("YYYY-MM-DD")
+      if(date == 0){return ''}
+      return this.dayjs(date).format("YYYY-MM-DD HH:mm")
     },
     changeEditor(e){
       console.log(e);
     }
-  }
+  },
+  computed: {
+    userName: {
+      get() {
+        return this.$store.state.userName
+      },
+      set() {}
+    }
+  },
 };
 </script>
 <style lang="scss">
