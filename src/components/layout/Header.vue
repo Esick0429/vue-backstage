@@ -12,7 +12,7 @@
           <i v-show="!playMusic" class="el-icon-video-pause"></i>
         </span>
       </el-col>
-      <audio id="audio" src="https://api.esick.xyz/audio/zty.mp3"></audio>
+      <audio id="audio" src="http://119.91.27.40:4000/audio/zty.mp3"></audio>
       <div class="header-right hidden-xs-and-down" :xs="3">
         <div class="header-user-con">
           <div class="btn-fullscreen hidden-xs-only" @click="clickFullscreen">

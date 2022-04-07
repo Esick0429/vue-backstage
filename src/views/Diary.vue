@@ -11,15 +11,16 @@
     </div>
     <div class="tableMain">
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="日期" width="180" :formatter="formatDate"></el-table-column>
-        <el-table-column prop="title" label="标题" width="250"></el-table-column>
+        <el-table-column prop="date" label="日期" width="150" :formatter="formatDate"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" width="150" :formatter="formatDate"></el-table-column>
+        <el-table-column prop="title" label="标题" width="150"></el-table-column>
         <el-table-column prop="content" label="内容" min-width="800px">
           <template slot-scope="scope">
             <div v-html="scope.row.content"></div>
           </template>
         </el-table-column>
         <el-table-column prop="updateTime" label="最后编辑时间" width="180" :formatter="formatDate"></el-table-column>
-        <el-table-column prop="userName" label="用户" width="120"></el-table-column>
+        <el-table-column prop="userName" label="用户" width="100"></el-table-column>
         <el-table-column label="操作" width="150" fixed="right">
           <template slot-scope="scope">
             <!-- 点击编辑进入编辑页面进行编辑表格数据 -->

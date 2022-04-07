@@ -83,7 +83,8 @@ export default {
   align-items: center;
   height: 100%;
   width: 100%;
-  // background: url('https://api.esick.xyz/images/image_1641991545979_wallhaven-v93o35.jpg') no-repeat fixed;
+  // background: url('http://119.91.27.40:4000/images/image_1649350088439_wallhaven-3z7dd3.png') no-repeat fixed;
+  // background-size: 100% 100%;
 }
 
 .login-title {
