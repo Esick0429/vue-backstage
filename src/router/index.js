@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 const register = () => import(/* webpackChunkName: 'components' */ '../components/Register.vue')
 const Home = () => import(/* webpackChunkName: 'components' */ '../components/layout/Home.vue')
 const Diary = () => import(/* webpackChunkName: 'views' */ '../views/Diary.vue')
+const Blog = () => import(/* webpackChunkName: 'views' */ '../views/Blog.vue')
 const Login = () => import(/* webpackChunkName: 'components' */ '../components/Login.vue')
 const Gallery = () => import(/* webpackChunkName: 'views' */ '../views/Gallery.vue')
 const From = () => import(/* webpackChunkName: 'views' */ '../views/From.vue')
@@ -50,6 +51,16 @@ const routes = [
         meta: {
           title: '日记',
           hideclose: true,
+          roles: ['user', 'admin']
+        }
+      },
+      {
+        path: 'blog',
+        name: 'blog',
+        component: Blog,
+        meta: {
+          title: 'blog',
+          // hideclose: true,
           roles: ['user', 'admin']
         }
       },

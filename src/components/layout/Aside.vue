@@ -68,6 +68,11 @@ export default {
         },
         {
           icon: 'el-icon-s-order',
+          index: 'blog',
+          title: 'blog'
+        },
+        {
+          icon: 'el-icon-s-order',
           index: '3',
           title: '表单相关',
           subs: [
