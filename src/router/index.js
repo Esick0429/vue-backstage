@@ -61,6 +61,7 @@ const routes = [
         meta: {
           title: 'blog',
           // hideclose: true,
+          Auth: true,
           roles: ['user', 'admin']
         }
       },

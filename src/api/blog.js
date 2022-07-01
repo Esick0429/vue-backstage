@@ -17,6 +17,24 @@ export function getTagList(data) {
   })
 }
 
+export function addArchive(data) {
+  // console.log('data::',data)
+  return request({
+    url: '/api/addArchive',
+    method: 'POST',
+    data
+  })
+}
+
+export function updateArchive(data) {
+  // console.log('data::',data)
+  return request({
+    url: '/api/updateArchive',
+    method: 'POST',
+    data
+  })
+}
+
 export function deleteArchive(data) {
   // console.log('data::',data)
   return request({

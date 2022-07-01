@@ -4,6 +4,7 @@ import router from '@/router/index'
 
 const service = axios.create({
   // baseURL: 'http://119.91.27.40:4000',
+  // baseURL: 'http://api.esick.work',
   timeout: 5000
 })
 
