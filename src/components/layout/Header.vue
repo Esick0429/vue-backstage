@@ -71,8 +71,6 @@ export default {
     // }
     let res = await getUserInfo()
     this.userInfo = res.data
-    let getUserRole = this.userInfo.authority === 1 ? 'admin' : 'user'
-    localStorage.setItem('UserRole', getUserRole)
     this.$store.commit('changeUserName', this.userInfo.username)
   },
   mounted() {

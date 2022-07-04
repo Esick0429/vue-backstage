@@ -23,17 +23,11 @@ const routes = [
   },
   {
     path: '/register',
-    component: register,
-    meta: {
-      requireAuth: true
-    }
+    component: register
   },
   {
     path: '/login',
-    component: Login,
-    meta: {
-      requireAuth: true
-    }
+    component: Login
   },
   {
     path: '/home/',
@@ -50,8 +44,7 @@ const routes = [
         component: Diary,
         meta: {
           title: '日记',
-          hideclose: true,
-          roles: ['user', 'admin']
+          hideclose: true
         }
       },
       {
@@ -61,40 +54,35 @@ const routes = [
         meta: {
           title: 'blog',
           // hideclose: true,
-          Auth: true,
-          roles: ['user', 'admin']
+          Auth: true
         }
       },
       {
         path: 'from',
         component: From,
         meta: {
-          title: '表单',
-          roles: ['user', 'admin']
+          title: '表单'
         }
       },
       {
         path: '500',
         component: Miss,
         meta: {
-          title: '500',
-          roles: ['admin']
+          title: '500'
         }
       },
       {
         path: '404',
         component: Miss2,
         meta: {
-          title: '404',
-          roles: ['admin']
+          title: '404'
         }
       },
       {
         path: '403',
         component: Miss3,
         meta: {
-          title: '403',
-          roles: ['admin']
+          title: '403'
         }
       },
       {
@@ -102,40 +90,35 @@ const routes = [
         component: Permission,
         meta: {
           title: '权限测试',
-          Auth: true,
-          roles: ['user', 'admin']
+          Auth: true
         }
       },
       {
         path: 'ditu',
         component: ditu,
         meta: {
-          title: '地图',
-          roles: ['user', 'admin']
+          title: '地图'
         }
       },
       {
         path: 'Music',
         component: Music,
         meta: {
-          title: '盗版云音乐',
-          roles: ['user', 'admin']
+          title: '盗版云音乐'
         }
       },
       {
         path: 'Gallery',
         component: Gallery,
         meta: {
-          title: '图库',
-          roles: ['user', 'admin']
+          title: '图库'
         }
       },
       {
         path: 'Echarts',
         component: Echarts,
         meta: {
-          title: 'Echarts图表',
-          roles: ['user', 'admin']
+          title: 'Echarts图表'
         }
       },
       {

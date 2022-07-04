@@ -37,13 +37,13 @@ router.beforeEach((to, from, next) => {
   console.log('to:', to)
   document.title = `${to.meta.title} | backstage`
   // const role = localStorage.getItem('ms_username');
-  const role = localStorage.getItem('UserRole')
+  const authority = localStorage.getItem('authority')
   const token = localStorage.getItem('token')
-  console.log(role)
+  console.log(authority)
   if (!token && to.path !== '/login' && to.path !== '/register') {
     next('/')
   } else if (to.meta.Auth) {
-    role === 'admin' ? next() : next('403')
+    authority ? next() : next('403')
   } else {
     next()
   }

@@ -36,6 +36,9 @@
           <el-form-item label="密码" :label-width="formLabelWidth">
             <el-input v-model="form.password" auto-complete="off"></el-input>
           </el-form-item>
+          <el-form-item label="权限" :label-width="formLabelWidth">
+            <el-switch v-model="form.authority" active-color="#13ce66" inactive-color="#ff4949" :active-value="1" :inactive-value="0"> </el-switch>
+          </el-form-item>
           <el-form-item label="头像" label-width="120px">
             <el-upload
               class="upload-demo"
@@ -101,6 +104,7 @@ export default {
     },
     handleEdit(index, row) {
       // eslint-disable-line no-unused-vars
+      console.log(this.list[index])
       this.form = this.list[index]
       this.currentIndex = index
       this.userid = row.id
@@ -140,13 +144,13 @@ export default {
       //   this.form.date = reformat(this.form.date);
       //    可以在html上面进行设置日期的格式化
       //   将我们添加的信息提交到总数据里面
-      let username = this.form.username
-      let password = this.form.password
-      let id = this.form.id
-      console.log('用户名为' + username)
-      console.log('密码' + password)
-      console.log('id' + id)
-      let res = await updateInfo({ username, password, id })
+      // let username = this.form.username
+      // let password = this.form.password
+      // let id = this.form.id
+      // console.log('用户名为' + username)
+      // console.log('密码' + password)
+      // console.log('id' + id)
+      let res = await updateInfo(this.form)
       this.$refs.upload.submit()
       if (res) {
         this.cancel()

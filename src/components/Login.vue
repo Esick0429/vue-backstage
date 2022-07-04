@@ -49,9 +49,11 @@ export default {
       console.log(data, '哇哇哇哇啊')
       if (data) {
         let token = data.token
+        let authority = data.authority
         if (data.status == 200) {
           this.$message.success('欢迎进入我的世界')
           localStorage.setItem('token', token)
+          localStorage.setItem('authority', authority)
           this.$router.push({
             name: 'rc' //使用params传参需要name，query则是用path
           })
