@@ -50,10 +50,12 @@ export default {
       if (data) {
         let token = data.token
         let authority = data.authority
+        let routeConfig = data.routeConfig
         if (data.status == 200) {
           this.$message.success('欢迎进入我的世界')
           localStorage.setItem('token', token)
           localStorage.setItem('authority', authority)
+          localStorage.setItem('route_config', routeConfig)
           this.$router.push({
             name: 'rc' //使用params传参需要name，query则是用path
           })

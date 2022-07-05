@@ -133,5 +133,19 @@ const router = new VueRouter({
   routes
   // mode: 'history'
 })
+router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title} | backstage`
+  // const role = localStorage.getItem('ms_username');
+  const authority = localStorage.getItem('authority')
+  const token = localStorage.getItem('token')
+  console.log(authority)
+  if (!token && to.path !== '/login' && to.path !== '/register') {
+    next('/')
+  } else if (to.meta.Auth) {
+    authority ? next() : next('403')
+  } else {
+    next()
+  }
+})
 
 export default router

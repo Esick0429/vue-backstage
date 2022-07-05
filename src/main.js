@@ -32,19 +32,3 @@ VueAMap.initAMapApiLoader({
   v: '1.4.4'
 })
 // axios.defaults.baseURL = 'http://localhost:3000/';
-router.beforeEach((to, from, next) => {
-  console.log('from:', from)
-  console.log('to:', to)
-  document.title = `${to.meta.title} | backstage`
-  // const role = localStorage.getItem('ms_username');
-  const authority = localStorage.getItem('authority')
-  const token = localStorage.getItem('token')
-  console.log(authority)
-  if (!token && to.path !== '/login' && to.path !== '/register') {
-    next('/')
-  } else if (to.meta.Auth) {
-    authority ? next() : next('403')
-  } else {
-    next()
-  }
-})
