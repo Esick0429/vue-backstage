@@ -70,7 +70,7 @@ export default {
           this.loading = false
         }, 200)
       }
-      this.imgList = res.data.data.list
+      this.imgList = res.data.list
       for (let i of this.imgList) {
         this.bigImgList.push(i.imgUrl)
       }

@@ -70,6 +70,7 @@ export default {
     //   this.isCollapse = false
     // }
     let res = await getUserInfo()
+    console.log(res)
     this.userInfo = res.data
     this.$store.commit('changeUserName', this.userInfo.username)
   },

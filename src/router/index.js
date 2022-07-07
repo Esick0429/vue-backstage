@@ -138,7 +138,6 @@ router.beforeEach((to, from, next) => {
   // const role = localStorage.getItem('ms_username');
   const authority = localStorage.getItem('authority')
   const token = localStorage.getItem('token')
-  console.log(authority)
   if (!token && to.path !== '/login' && to.path !== '/register') {
     next('/')
   } else if (to.meta.Auth) {

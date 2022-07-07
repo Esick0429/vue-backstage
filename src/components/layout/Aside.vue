@@ -106,11 +106,11 @@ export default {
           index: 'ditu',
           title: '地图'
         },
-        {
-          icon: 'el-icon-headset',
-          index: 'music',
-          title: '盗版云音乐'
-        },
+        // {
+        //   icon: 'el-icon-headset',
+        //   index: 'music',
+        //   title: '盗版云音乐'
+        // },
         {
           icon: 'el-icon-s-data',
           index: 'echarts',

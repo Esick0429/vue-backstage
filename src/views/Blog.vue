@@ -15,9 +15,10 @@
         <el-table-column prop="date" label="创建时间" width="150" :formatter="formatDate"></el-table-column>
         <el-table-column prop="archiveTitle" label="标题" width="150"></el-table-column>
         <el-table-column prop="tagName" label="标签名" width="150"></el-table-column>
-        <el-table-column prop="archiveContent" label="内容" min-width="800px">
+        <el-table-column prop="archiveContent" label="内容" min-width="800px" :show-overflow-tooltip="true">
           <template slot-scope="scope">
             <div v-html="scope.row.archiveContent"></div>
+            <div>{{ scope.row.archiveContent.lenght }}</div>
           </template>
         </el-table-column>
         <el-table-column prop="updateTime" label="最后编辑时间" width="150" :formatter="formatDate"></el-table-column>
@@ -44,11 +45,11 @@
             </el-select>
           </el-form-item>
           <el-form-item label="文章内容">
-            <editor v-model="archiveForm.archiveContent" />
+            <newEditor v-model="archiveForm.archiveContent" @change="changeEditor" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit()">立即创建</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="closeDialog">取消</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -67,11 +68,13 @@ const formData = () => ({
   archiveContent: ''
 })
 import { getTagList, getAllArchive, addArchive, updateArchive, deleteArchive } from '@/api/blog.js'
-import editor from '@/components/common/editor.vue'
+// import editor from '@/components/common/editor.vue'
+import newEditor from '@/components/common/newEditor.vue'
 import Pagination from '@/components/common/Pagination.vue'
 export default {
   components: {
-    editor: editor,
+    // editor: editor,
+    newEditor,
     Pagination
   },
   data() {
@@ -106,8 +109,8 @@ export default {
         endTime: this.value6[1] || 0
       }
       let res = await getAllArchive(data)
-      this.tableData = res.data.data.list
-      this.total = res.data.data.total
+      this.tableData = res.data.list
+      this.total = res.data.total
       this.loading = false
     },
     select() {
@@ -123,7 +126,8 @@ export default {
       console.log(row)
       this.dialogVisible = true
       this.title = '编辑文章'
-      this.archiveForm = row
+      let rowData = Object.assign({}, row)
+      this.archiveForm = rowData
     },
     handleDelete(row) {
       console.log(row)
@@ -179,6 +183,11 @@ export default {
     },
     closeDialog() {
       this.archiveForm = formData()
+      this.dialogVisible = false
+      // this.getAllArchive()
+    },
+    changeEditor(e) {
+      this.archiveForm.archiveContent = e
     },
     formatDate(row, column) {
       var date = row[column.property]

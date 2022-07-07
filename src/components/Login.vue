@@ -42,7 +42,7 @@ export default {
     login: debounce(async function (formName) {
       let username = this.username
       console.log(username)
-      let { data } = await login({
+      let data = await login({
         username: this.username,
         password: this.password
       })

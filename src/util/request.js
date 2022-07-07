@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '@/router/index'
+import { Message } from 'element-ui'
 //请求拦截器
 
 const service = axios.create({
@@ -29,10 +30,15 @@ service.interceptors.request.use(
 //响应拦截器
 service.interceptors.response.use(
   function (response) {
+    let { status, msg, data } = response.data
+    if (status !== 200) {
+      Message.error(msg)
+    }
     if (response.data.status === 401) {
       router.replace('/login')
     }
-    return response
+
+    return response.data
   },
   function (error) {
     return Promise.reject(error)

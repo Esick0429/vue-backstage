@@ -110,7 +110,7 @@ export default {
       if(data) setTimeout(()=>{
         this.loading = false
       },200)
-      this.tableData = data.data
+      this.tableData = data.list
       this.total = data.total
     },
     async resetDiaryData(){
@@ -131,7 +131,8 @@ export default {
     handleEdit(index, row) {// eslint-disable-line no-unused-vars
       this.title = '修改日记'
       // 将数据的index传递过来用于实现数据的回显
-      this.form = this.tableData[index];
+      let rowData = Object.assign({},this.tableData[index])
+      this.form = rowData;
       // 设置对话框的可见
       this.dialogFormVisible = true;
       this.flag = 1
@@ -140,7 +141,6 @@ export default {
       //   this.form.date = reformat(this.form.date);
       //    可以在html上面进行设置日期的格式化
       //   将我们添加的信息提交到总数据里面
-      console.log(this.form);
       console.log(this.userName);
       if(this.flag == 0){
         let data = {
@@ -189,19 +189,12 @@ export default {
             await this.getDiaryData()
           }
         })
-        .catch((err) => {
-          console.log(err);
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
     },
     cancel() {
       // 取消的时候直接设置对话框不可见即可
       this.dialogFormVisible = false;
       this.flag = 0
-      this.getDiaryData()
+      // this.getDiaryData()
     },
     handleSizeChange(val) {
       this.pageSize = val
@@ -226,7 +219,8 @@ export default {
       get() {
         return this.$store.state.userName
       },
-      set() {}
+      set() {
+      }
     }
   },
 };
