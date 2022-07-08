@@ -110,22 +110,15 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
+      }).then(async () => {
+        let res = await deleteImg(item)
+        if (res.status === 200) {
+          this.$message.success('删除成功')
+          this.getImgs()
+        } else {
+          this.$message.error('删除失败')
+        }
       })
-        .then(async () => {
-          let res = await deleteImg(item)
-          if (res.data.status === 200) {
-            this.$message.success('删除成功')
-            this.getImgs()
-          } else {
-            this.$message.error('删除失败')
-          }
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
     }
   }
 }
