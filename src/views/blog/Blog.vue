@@ -1,12 +1,20 @@
 <template>
   <div v-loading="loading" element-loading-text="拼命加载中">
-    <div>
+    <div class="selectMenu">
       <el-select v-model="value" filterable placeholder="请选择">
         <el-option v-for="item in options" :key="item.tagId" :label="item.tagName" :value="item.tagId"> </el-option>
       </el-select>
-      <el-date-picker v-model="value6" type="daterange" range-separator="至" value-format="timestamp" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker
+        v-model="value6"
+        type="daterange"
+        :style="{ marginLeft: '20px' }"
+        range-separator="至"
+        value-format="timestamp"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+      >
       </el-date-picker>
-      <el-button type="primary" @click="select()">查询</el-button>
+      <el-button type="primary" @click="select()" :style="{ marginLeft: '20px' }">查询</el-button>
       <el-button type="primary" @click="addArchive()">新增</el-button>
       <el-button @click="reset()">重置</el-button>
     </div>
@@ -15,10 +23,22 @@
         <el-table-column prop="date" label="创建时间" width="150" :formatter="formatDate"></el-table-column>
         <el-table-column prop="archiveTitle" label="标题" width="150"></el-table-column>
         <el-table-column prop="tagName" label="标签名" width="150"></el-table-column>
-        <el-table-column prop="archiveContent" label="内容" min-width="800px" :show-overflow-tooltip="true">
+        <el-table-column prop="archiveContent" label="内容" min-width="800px">
           <template slot-scope="scope">
-            <div v-html="scope.row.archiveContent"></div>
-            <div>{{ scope.row.archiveContent.lenght }}</div>
+            <el-tooltip effect="dark" placement="top">
+              <div slot="content" v-html="scope.row.archiveContent"></div>
+              <div
+                v-html="scope.row.archiveContent"
+                :style="{
+                  width: '100%',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '5',
+                  WebkitBoxOrient: 'vertical'
+                }"
+              ></div>
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column prop="updateTime" label="最后编辑时间" width="150" :formatter="formatDate"></el-table-column>
@@ -31,7 +51,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <Pagination :page="firstData.currentPage" :limit="firstData.pageSize" :total="total" @pagination="getAllArchive"></Pagination>
+      <Pagination :page="firstData.currentPage" :limit="firstData.pageSize" :total="total" @pagination="fetchData"></Pagination>
     </div>
     <div class="arhive_dialog">
       <el-dialog :title="title" :visible.sync="dialogVisible" @close="closeDialog">
@@ -108,12 +128,19 @@ export default {
         startTime: this.value6[0] || 0,
         endTime: this.value6[1] || 0
       }
+      console.log(data)
       let res = await getAllArchive(data)
       this.tableData = res.data.list
       this.total = res.data.total
       this.loading = false
     },
     select() {
+      this.firstData.currentPage = 1
+      this.getAllArchive()
+    },
+    fetchData(obj) {
+      this.firstData.currentPage = obj.page
+      this.firstData.pageSize = obj.limit
       this.getAllArchive()
     },
     reset() {
@@ -166,15 +193,15 @@ export default {
     },
     async onSubmit() {
       if (this.title === '新增文章') {
-        let res = await addArchive(this.archiveForm)
-        if (res.data.status === 200) {
+        let data = await addArchive(this.archiveForm)
+        if (data.status === 200) {
           this.$message.success('新增成功')
           this.dialogVisible = false
         }
       }
       if (this.title === '编辑文章') {
-        let res = await updateArchive(this.archiveForm)
-        if (res.data.status === 200) {
+        let data = await updateArchive(this.archiveForm)
+        if (data.status === 200) {
           this.$message.success('修改成功')
           this.dialogVisible = false
         }

@@ -12,11 +12,24 @@
     <div class="tableMain">
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="date" label="日期" width="150" :formatter="formatDate"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" width="150" :formatter="formatDate"></el-table-column>
+        <!-- <el-table-column prop="create_time" label="创建时间" width="150" :formatter="formatDate"></el-table-column> -->
         <el-table-column prop="title" label="标题" width="150"></el-table-column>
         <el-table-column prop="content" label="内容" min-width="800px">
           <template slot-scope="scope">
-            <div v-html="scope.row.content"></div>
+            <el-tooltip effect="dark" placement="top">
+              <div slot="content" v-html="scope.row.content"></div>
+              <div
+                v-html="scope.row.content"
+                :style="{
+                  width: '100%',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '5',
+                  WebkitBoxOrient: 'vertical'
+                }"
+              ></div>
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column prop="updateTime" label="最后编辑时间" width="180" :formatter="formatDate"></el-table-column>
@@ -52,7 +65,7 @@
         </el-form-item>
         <el-form-item label="内容" :label-width="formLabelWidth">
           <!-- <el-input v-model="form.content" type="textarea"></el-input> -->
-          <editor v-model="form.content" @change="changeEditor" />
+          <newEditor v-model="form.content" @change="changeEditor" />
         </el-form-item>
         <!-- <el-form-item label="日期" :label-width="formLabelWidth">
           <el-date-picker
@@ -72,48 +85,48 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
-import { selectDiary,addDiary,updateDiary,deleteDiary} from '../api/index'
+<script>
+import { selectDiary, addDiary, updateDiary, deleteDiary } from '../api/index'
 import { debounce } from '@/util/debounce'
-import editor from '@/components/common/editor.vue'
+import newEditor from '@/components/common/newEditor.vue'
 export default {
-  components:{
-    editor:editor
+  components: {
+    newEditor
   },
   data() {
     return {
       loading: true,
-      title:'',
+      title: '',
       //   表格的数据
-      tableData:[],
-      flag : 0,
+      tableData: [],
+      flag: 0,
       dialogFormVisible: false,
-      formLabelWidth: "80px",
+      formLabelWidth: '80px',
       // 设置form用于进行添加的时候绑定值
       form: {},
       value6: '',
       currentPage: 1,
-      total:0,
-      pageSize:10
-    };
+      total: 0,
+      pageSize: 10
+    }
   },
   created() {
     //   设置回调函数，进行1.5秒的loading动画显示
     this.getDiaryData()
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    async getDiaryData(){
+    async getDiaryData() {
       this.loading = true
-      let {data} = await selectDiary({pageIndex:this.currentPage,pageSize:this.pageSize,startTime:this.value6[0] || 0,endTime:this.value6[1] || 0})
-      if(data) setTimeout(()=>{
-        this.loading = false
-      },200)
+      let { data } = await selectDiary({ pageIndex: this.currentPage, pageSize: this.pageSize, startTime: this.value6[0] || 0, endTime: this.value6[1] || 0 })
+      if (data)
+        setTimeout(() => {
+          this.loading = false
+        }, 200)
       this.tableData = data.list
       this.total = data.total
     },
-    async resetDiaryData(){
+    async resetDiaryData() {
       this.currentPage = 1
       this.value6 = ''
       await this.getDiaryData()
@@ -122,77 +135,78 @@ export default {
     add() {
       this.title = '新增日记'
       this.form = {
-        title: "",
-        content: "",
-      };
+        title: '',
+        content: ''
+      }
       //   设置点击按钮之后进行显示对话框
-      this.dialogFormVisible = true;
+      this.dialogFormVisible = true
     },
-    handleEdit(index, row) {// eslint-disable-line no-unused-vars
+    handleEdit(index, row) {
+      // eslint-disable-line no-unused-vars
       this.title = '修改日记'
       // 将数据的index传递过来用于实现数据的回显
-      let rowData = Object.assign({},this.tableData[index])
-      this.form = rowData;
+      let rowData = Object.assign({}, this.tableData[index])
+      this.form = rowData
       // 设置对话框的可见
-      this.dialogFormVisible = true;
+      this.dialogFormVisible = true
       this.flag = 1
     },
-    update:debounce(async function (index) {
+    update: debounce(async function (index) {
       //   this.form.date = reformat(this.form.date);
       //    可以在html上面进行设置日期的格式化
       //   将我们添加的信息提交到总数据里面
-      console.log(this.userName);
-      if(this.flag == 0){
+      console.log(this.userName)
+      if (this.flag == 0) {
         let data = {
-          userName:this.$store.state.userName,
+          userName: this.$store.state.userName,
           ...this.form
         }
-      let res = await addDiary(data)
-      }else{
+        let res = await addDiary(data)
+      } else {
         let data = {
-          id:this.form.id,
-          title:this.form.title,
-          content:this.form.content,
-          userName:this.form.userName
+          id: this.form.id,
+          title: this.form.title,
+          content: this.form.content,
+          userName: this.form.userName
         }
         let res = await updateDiary(data)
-        if(res.data.status === 403){
-              this.$message.error('修改失败，权限不足')
-        }else{
-              this.$message.success('修改成功')
+        if (res.status === 403) {
+          this.$message.error('修改失败，权限不足')
+        } else {
+          this.$message.success('修改成功')
         }
         this.flag = 0
       }
       this.getDiaryData()
-      this.dialogFormVisible = false;
-    },300),
-    handleDelete(index, row) {// eslint-disable-line no-unused-vars
+      this.dialogFormVisible = false
+    }, 300),
+    handleDelete(index, row) {
+      // eslint-disable-line no-unused-vars
       // 设置类似于console类型的功能
-      this.$confirm("是否删除该条日记？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(async () => {
-          // 移除对应索引位置的数据，可以对row进行设置向后台请求删除数据
-          console.log(row);
-          let res = await deleteDiary({id:row.id,userName:row.userName})
-          if(res){
-            if(res.data.status === 200){
-              this.$message({
-              type: "success",
-              message: "删除成功!"
-              });
-            }else if(res.data.status === 403){
-              this.$message.error('删除失败，权限不足')
-            }
-            await this.getDiaryData()
+      this.$confirm('是否删除该条日记？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        // 移除对应索引位置的数据，可以对row进行设置向后台请求删除数据
+        console.log(row)
+        let res = await deleteDiary({ id: row.id, userName: row.userName })
+        if (res) {
+          if (res.data.status === 200) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          } else if (res.data.status === 403) {
+            this.$message.error('删除失败，权限不足')
           }
-        })
+          await this.getDiaryData()
+        }
+      })
     },
     cancel() {
       // 取消的时候直接设置对话框不可见即可
-      this.dialogFormVisible = false;
+      this.dialogFormVisible = false
       this.flag = 0
       // this.getDiaryData()
     },
@@ -204,14 +218,18 @@ export default {
       this.currentPage = val
       this.getDiaryData()
     },
-    formatDate(row,column){
-      var date = row[column.property];
-      if(date == undefined){return ''}
-      if(date == 0){return ''}
-      return this.dayjs(date).format("YYYY-MM-DD HH:mm")
+    formatDate(row, column) {
+      var date = row[column.property]
+      if (date == undefined) {
+        return ''
+      }
+      if (date == 0) {
+        return ''
+      }
+      return this.dayjs(date).format('YYYY-MM-DD HH:mm')
     },
-    changeEditor(e){
-      console.log(e);
+    changeEditor(e) {
+      this.form.content = e
     }
   },
   computed: {
@@ -219,11 +237,10 @@ export default {
       get() {
         return this.$store.state.userName
       },
-      set() {
-      }
+      set() {}
     }
-  },
-};
+  }
+}
 </script>
 <style lang="scss">
 .basetable {

@@ -1,21 +1,62 @@
 <template>
   <div style="border: 1px solid #ccc">
-    <Toolbar style="border-bottom: 1px solid #ccc" :editor="editor" :defaultConfig="toolbarConfig" :mode="mode" />
-    <Editor style="height: 500px; overflow-y: hidden" v-model="info_" :defaultConfig="editorConfig" :mode="mode" @onCreated="onCreated" @onChange="onChange" />
+    <Toolbar style="border-bottom: 1px solid #ccc" :editor="editor" :default-config="toolbarConfig" :mode="mode" />
+    <Editor style="height: 500px; overflow-y: hidden" v-model="info_" :default-config="editorConfig" :mode="mode" @onCreated="onCreated" @onChange="onChange" />
   </div>
 </template>
 <script>
 import Vue from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-
 export default Vue.extend({
   components: { Editor, Toolbar },
   data() {
     return {
       editor: null,
       toolbarConfig: {},
-      editorConfig: { placeholder: '请输入内容...' },
-      mode: 'simple', // or 'simple',
+      editorConfig: {
+        placeholder: '请输入内容...',
+        MENU_CONF: {
+          uploadImage: {
+            server: 'http://127.0.0.1:4000/api/uploadImg', // 上传图片地址
+            // server: '/api/upload-img-10s', // 用于测试 timeout
+            // server: '/api/upload-img-failed', // 用于测试 failed
+            // server: '/api/xxx', // 用于测试 404
+
+            timeout: 5 * 1000, // 5s
+
+            fieldName: 'image',
+            // meta: { token: localStorage.getItem('token') },
+            metaWithUrl: false, // 参数拼接到 url 上
+            headers: { Authorization: localStorage.getItem('token') },
+
+            maxFileSize: 10 * 1024 * 1024, // 10M
+            allowedFileTypes: ['image/*'],
+            base64LimitSize: 5 * 1024, // 5kb 以下插入 base64
+
+            onBeforeUpload(files) {
+              console.log('onBeforeUpload', files)
+
+              return files // 返回哪些文件可以上传
+              // return false 会阻止上传
+            },
+            onProgress(progress) {
+              console.log('onProgress', progress)
+            },
+            onSuccess(file, res) {
+              console.log('onSuccess', file, res)
+            },
+            onFailed(file, res) {
+              // alert(res.message)
+              console.log('onFailed', file, res)
+            },
+            onError(file, err, res) {
+              // alert(err.message)
+              console.error('onError', file, err, res)
+            }
+          }
+        }
+      },
+      mode: 'default', // or 'simple',
       info_: null
     }
   },

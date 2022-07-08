@@ -69,7 +69,13 @@ export default {
         {
           icon: 'el-icon-s-order',
           index: 'blog',
-          title: 'blog'
+          title: 'blog',
+          subs: [
+            {
+              index: 'blog',
+              title: '文章管理'
+            }
+          ]
         },
         {
           icon: 'el-icon-s-order',
