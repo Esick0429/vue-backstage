@@ -16,6 +16,22 @@ export function getTagList(data) {
     data
   })
 }
+export function addTags(data) {
+  // console.log('data::',data)
+  return request({
+    url: '/api/addTags',
+    method: 'post',
+    data
+  })
+}
+export function deleteArchive(data) {
+  // console.log('data::',data)
+  return request({
+    url: `/api/deleteTags?tagId=${data.tagId}`,
+    method: 'DELETE',
+    data
+  })
+}
 
 export function addArchive(data) {
   // console.log('data::',data)

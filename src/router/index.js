@@ -4,6 +4,7 @@ const register = () => import(/* webpackChunkName: 'components' */ '../component
 const Home = () => import(/* webpackChunkName: 'components' */ '../components/layout/Home.vue')
 const Diary = () => import(/* webpackChunkName: 'views' */ '../views/Diary.vue')
 const Blog = () => import(/* webpackChunkName: 'views' */ '../views/blog/Blog.vue')
+const Tags = () => import(/* webpackChunkName: 'views' */ '../views/blog/Tags.vue')
 const Login = () => import(/* webpackChunkName: 'components' */ '../components/Login.vue')
 const Gallery = () => import(/* webpackChunkName: 'views' */ '../views/Gallery.vue')
 const From = () => import(/* webpackChunkName: 'views' */ '../views/From.vue')
@@ -53,6 +54,16 @@ const routes = [
         component: Blog,
         meta: {
           title: 'blog',
+          // hideclose: true,
+          Auth: true
+        }
+      },
+      {
+        path: 'blog/tags',
+        name: 'tags',
+        component: Tags,
+        meta: {
+          title: 'tags',
           // hideclose: true,
           Auth: true
         }
