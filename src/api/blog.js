@@ -24,7 +24,7 @@ export function addTags(data) {
     data
   })
 }
-export function deleteArchive(data) {
+export function deleteTags(data) {
   // console.log('data::',data)
   return request({
     url: `/api/deleteTags?tagId=${data.tagId}`,
