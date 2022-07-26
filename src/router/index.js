@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
 const register = () => import(/* webpackChunkName: 'components' */ '../components/Register.vue')
 const Home = () => import(/* webpackChunkName: 'components' */ '../components/layout/Home.vue')
 const Diary = () => import(/* webpackChunkName: 'views' */ '../views/Diary.vue')
@@ -59,7 +63,7 @@ const routes = [
         }
       },
       {
-        path: 'blog/tags',
+        path: 'tags',
         name: 'tags',
         component: Tags,
         meta: {
@@ -144,15 +148,16 @@ const router = new VueRouter({
   routes
   // mode: 'history'
 })
+
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title ?? ''} | backstage`
   // const role = localStorage.getItem('ms_username');
-  const authority = localStorage.getItem('authority')
+  const authority = Number(localStorage.getItem('authority'))
   const token = localStorage.getItem('token')
   if (!token && to.path !== '/login' && to.path !== '/register') {
     next('/')
   } else if (to.meta.Auth) {
-    authority ? next() : next('403')
+    authority ? next() : router.push('403')
   } else {
     next()
   }

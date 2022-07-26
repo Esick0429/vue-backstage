@@ -93,12 +93,8 @@ export default {
   },
   methods: {
     async allUser() {
-      let res = await select({ list: this.list })
-      if (res.status == 403) {
-        this.$router.replace('403')
-        return
-      }
-      this.list = res.list
+      let res = await select()
+      this.list = res.data
     },
     handleEdit(index, row) {
       // eslint-disable-line no-unused-vars

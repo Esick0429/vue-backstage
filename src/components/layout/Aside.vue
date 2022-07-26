@@ -76,7 +76,7 @@ export default {
               title: '文章管理'
             },
             {
-              index: 'blog/tags',
+              index: 'tags',
               title: '标签管理'
             }
           ]
