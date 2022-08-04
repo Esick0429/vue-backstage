@@ -3,7 +3,7 @@ import request from '@/util/request'
 export function login(data) {
   // console.log('data::',data)
   return request({
-    url: '/api/login',
+    url: '/login',
     method: 'POST',
     data
   })
@@ -11,7 +11,7 @@ export function login(data) {
 
 export function register(data) {
   return request({
-    url: `/api/register`,
+    url: `/register`,
     method: 'POST',
     data
   })
@@ -20,7 +20,7 @@ export function register(data) {
 export function select(data) {
   // console.log('data::',data)
   return request({
-    url: '/api/select',
+    url: '/select',
     method: 'GET',
     data
   })
@@ -29,7 +29,7 @@ export function select(data) {
 export function getUserInfo(data) {
   // console.log('data::',data)
   return request({
-    url: '/api/getUserInfo',
+    url: '/getUserInfo',
     method: 'GET',
     data
   })
@@ -38,7 +38,7 @@ export function getUserInfo(data) {
 export function deletePassword(data) {
   // console.log('data::',data)
   return request({
-    url: '/api/delete',
+    url: '/delete',
     method: 'POST',
     data
   })
@@ -47,7 +47,7 @@ export function deletePassword(data) {
 export function updateInfo(data) {
   // console.log('data::',data)
   return request({
-    url: '/api/update',
+    url: '/update',
     method: 'POST',
     data
   })
@@ -55,14 +55,14 @@ export function updateInfo(data) {
 
 export function selectDiary(data) {
   return request({
-    url: `/api/getDiary?pageIndex=${data.pageIndex}&pageSize=${data.pageSize}&startTime=${data.startTime}&endTime=${data.endTime}`,
+    url: `/getDiary?pageIndex=${data.pageIndex}&pageSize=${data.pageSize}&startTime=${data.startTime}&endTime=${data.endTime}`,
     method: 'GET'
   })
 }
 
 export function addDiary(data) {
   return request({
-    url: `/api/addDiary`,
+    url: `/addDiary`,
     method: 'POST',
     data
   })
@@ -70,7 +70,7 @@ export function addDiary(data) {
 
 export function updateDiary(data) {
   return request({
-    url: `/api/updateDiary`,
+    url: `/updateDiary`,
     method: 'POST',
     data
   })
@@ -78,7 +78,7 @@ export function updateDiary(data) {
 
 export function deleteDiary(data) {
   return request({
-    url: `/api/deleteDiary?id=${data.id}&userName=${data.userName}`,
+    url: `/deleteDiary?id=${data.id}&userName=${data.userName}`,
     method: 'DELETE',
     data
   })
@@ -86,7 +86,7 @@ export function deleteDiary(data) {
 
 export function upload(data) {
   return request({
-    url: `/api/uploadImg`,
+    url: `/uploadImg`,
     method: 'post',
     headers: { 'Content-Type': 'multipart/form-data' },
     data
@@ -95,7 +95,7 @@ export function upload(data) {
 
 export function getImgs(data) {
   return request({
-    url: `/api/getImgs`,
+    url: `/getImgs`,
     method: 'GET',
     data
   })
@@ -103,7 +103,7 @@ export function getImgs(data) {
 
 export function deleteImg(data) {
   return request({
-    url: `/api/deleteImgs?id=${data.id}&imgName=${data.imgName}`,
+    url: `/deleteImgs?id=${data.id}&imgName=${data.imgName}`,
     method: 'DELETE',
     data
   })
