@@ -17,7 +17,7 @@ export default Vue.extend({
         placeholder: '请输入内容...',
         MENU_CONF: {
           uploadImage: {
-            server: 'http://127.0.0.1:4000/api/uploadImg', // 上传图片地址
+            server: 'https://api.esick.work/admin/uploadImg', // 上传图片地址
             // server: '/api/upload-img-10s', // 用于测试 timeout
             // server: '/api/upload-img-failed', // 用于测试 failed
             // server: '/api/xxx', // 用于测试 404
