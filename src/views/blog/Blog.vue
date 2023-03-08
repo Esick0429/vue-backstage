@@ -54,7 +54,7 @@
       <Pagination :page="firstData.currentPage" :limit="firstData.pageSize" :total="total" @pagination="fetchData"></Pagination>
     </div>
     <div class="arhive_dialog">
-      <el-dialog :title="title" :visible.sync="dialogVisible" @close="closeDialog">
+      <el-dialog :title="title" :visible.sync="dialogVisible" @close="closeDialog" :close-on-click-modal="false">
         <el-form ref="form" :model="archiveForm" label-width="80px">
           <el-form-item label="文章名称">
             <el-input v-model="archiveForm.archiveTitle"></el-input>
