@@ -46,11 +46,10 @@ export default {
         username: this.username,
         password: this.password
       })
-      console.log(data, '哇哇哇哇啊')
       if (data) {
-        let token = data.token
-        let authority = data.authority
-        let routeConfig = data.routeConfig
+        let token = data.data.token
+        let authority = data.data.authority
+        let routeConfig = data.data.routeConfig
         if (data.status == 200) {
           this.$message.success('欢迎进入我的世界')
           localStorage.setItem('token', token)
